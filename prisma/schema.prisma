@@ -1,0 +1,146 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model bbm_config {
+  id         Int       @id @default(autoincrement())
+  nama_bbm   String?
+  harga      Int?
+  updated_at DateTime? @default(now())
+  stok       Float?    @default(1000)
+  kapasitas  Float?    @default(3000)
+}
+
+model bbm_history {
+  id            Int      @id @default(autoincrement())
+  bbm_config_id Int?
+  harga_lama    Int?
+  harga_baru    Int?
+  diubah_oleh   Int?
+  waktu         DateTime @default(now())
+}
+
+model bbm_log {
+  id                  Int             @id @default(autoincrement())
+  laporan_id          Int?
+  totalisator_awal    Float?
+  totalisator_akhir   Float?
+  test_pump           Float?
+  penjualan_liter     Float?
+  penjualan_rp        Int?
+  stok_awal           Float?
+  stok_akhir_teoritis Float?
+  stok_akhir_actual   Float?
+  gain_loss           Float?
+  shift_id            Int?
+  laporan_harian      laporan_harian? @relation(fields: [laporan_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+
+  @@index([laporan_id])
+}
+
+model laporan_harian {
+  id                Int           @id @default(autoincrement())
+  tanggal           DateTime?
+  hari              String?
+  kas_kecil         Int?
+  total_penjualan   Int?
+  total_pengeluaran Int?
+  saldo_bersih      Int?
+  created_at        DateTime      @default(now())
+  pertashop_id      Int?
+  bbm_log           bbm_log[]
+  pengeluaran       pengeluaran[]
+  setoran           setoran[]
+}
+
+model pengeluaran {
+  id             Int               @id @default(autoincrement())
+  laporan_id     Int?
+  nama           String?
+  keterangan     String?
+  jumlah         Int?
+  tipe           pengeluaran_tipe?
+  shift_id       Int?
+  laporan_harian laporan_harian?   @relation(fields: [laporan_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+
+  @@index([laporan_id])
+}
+
+model pertashop {
+  id     Int     @id @default(autoincrement())
+  nama   String?
+  lokasi String?
+}
+
+model products {
+  id         Int      @id @default(autoincrement())
+  nama       String?
+  harga      Int?
+  stok       Int?
+  created_at DateTime @default(now())
+}
+
+model setoran {
+  id             Int             @id @default(autoincrement())
+  laporan_id     Int?
+  tanggal        DateTime?
+  jumlah         Int?
+  metode         setoran_metode?
+  keterangan     String?
+  shift_id       Int?
+  laporan_harian laporan_harian? @relation(fields: [laporan_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
+
+  @@index([laporan_id])
+}
+
+model shifts {
+  id        Int            @id @default(autoincrement())
+  user_id   Int?
+  jam_buka  DateTime?
+  jam_tutup DateTime?
+  status    shifts_status?
+}
+
+model transactions {
+  id             Int       @id @default(autoincrement())
+  product_id     Int?
+  jumlah         Int?
+  total          Int?
+  created_at     DateTime  @default(now())
+  shift_id       Int?
+  harga_per_unit Int?
+  waktu          DateTime? @default(now())
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model users {
+  ID         Int      @id @default(autoincrement())
+  nama       String
+  email      String   @unique
+  password   String
+  role       String
+  no_hp      String
+  created_at DateTime @default(now())
+  foto       String?
+}
+
+enum setoran_metode {
+  tf
+  tunai
+}
+
+enum shifts_status {
+  open
+  closed
+}
+
+enum pengeluaran_tipe {
+  cashback
+  biaya
+}

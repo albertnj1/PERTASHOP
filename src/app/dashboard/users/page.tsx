@@ -1,7 +1,14 @@
 import { prisma } from "@/lib/prisma";
+import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { Users, UserPlus, Mail, Phone, Shield, MoreVertical, Trash2, Edit } from "lucide-react";
 
 export default async function UsersPage() {
+  const session = await getSession();
+  if (session?.user?.role !== "Admin") {
+    redirect("/dashboard");
+  }
+
   const allUsers = await prisma.users.findMany({
     orderBy: { created_at: 'desc' }
   });

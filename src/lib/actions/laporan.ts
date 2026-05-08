@@ -3,19 +3,19 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
+import { getSession } from "@/lib/auth";
+
 export async function createLaporan(formData: FormData) {
-  const pertashop_id = parseInt(formData.get("pertashop_id") as string);
-  const shift_id = parseInt(formData.get("shift_id") as string);
-  const tanggal = new Date(formData.get("tanggal") as string);
-  const hari = formData.get("hari") as string;
-  const kas_kecil = parseInt((formData.get("kas_kecil") as string) || "0");
+  const session = await getSession();
+  if (!session) throw new Error("Unauthorized");
+
+  const userRole = session.user.role;
   
-  const totalisator_awal = parseFloat(formData.get("totalisator_awal") as string);
-  const totalisator_akhir = parseFloat(formData.get("totalisator_akhir") as string);
   try {
     const pertashop_id = parseInt(formData.get("pertashop_id") as string);
     const shift_id = parseInt(formData.get("shift_id") as string);
-    const tanggal = new Date(formData.get("tanggal") as string);
+    const tanggalInput = formData.get("tanggal") as string;
+    const tanggal = new Date(tanggalInput);
     const hari = formData.get("hari") as string;
     const kas_kecil = parseInt((formData.get("kas_kecil") as string) || "0");
     
@@ -27,7 +27,15 @@ export async function createLaporan(formData: FormData) {
     const cashback = parseInt((formData.get("cashback") as string) || "0");
     const biaya_operasional = parseInt((formData.get("biaya_operasional") as string) || "0");
 
-    // Validasi
+    // Validation: Operator only for today
+    if (userRole === "Operator") {
+      const today = new Date().toISOString().split('T')[0];
+      if (tanggalInput !== today) {
+        throw new Error("Operator hanya dapat menginput laporan untuk hari ini. Revisi hari sebelumnya harus melalui Admin.");
+      }
+    }
+
+    // Validasi data numeric
     if (isNaN(totalisator_awal) || isNaN(totalisator_akhir) || isNaN(harga_bbm)) {
       throw new Error("Data totalisator atau harga BBM tidak valid.");
     }

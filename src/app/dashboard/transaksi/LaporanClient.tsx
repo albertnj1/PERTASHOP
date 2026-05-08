@@ -53,13 +53,25 @@ export default function LaporanClient({ pertashops, activeShift, bbmPrice, userR
     
     startTransition(async () => {
       try {
+        // Double check date for Operator in UI
+        if (userRole === "Operator") {
+          const today = new Date().toISOString().split('T')[0];
+          const selectedDate = formData.get("tanggal") as string;
+          if (selectedDate !== today) {
+            throw new Error("Operator hanya dapat menginput laporan untuk hari ini.");
+          }
+        }
+
         await createLaporan(formData);
         setNotification({ type: "success", message: "Laporan harian berhasil disimpan!" });
         setIsOpen(false);
         setTimeout(() => setNotification(null), 3000);
-      } catch (error) {
-        setNotification({ type: "error", message: "Gagal menyimpan laporan. Cek kembali data Anda." });
-        setTimeout(() => setNotification(null), 3000);
+      } catch (error: any) {
+        setNotification({ 
+          type: "error", 
+          message: error.message || "Gagal menyimpan laporan. Cek kembali data Anda." 
+        });
+        setTimeout(() => setNotification(null), 5000);
       }
     });
   };

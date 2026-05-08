@@ -119,6 +119,23 @@ export default function RegisterPage() {
             </div>
           </div>
 
+          <div className="mb-[30px]">
+            <label className="text-sm text-white/90 mb-3 block font-medium">Register as</label>
+            <div className="grid grid-cols-2 gap-4">
+              <label className="relative cursor-pointer group">
+                <input type="radio" name="role" value="Operator" defaultChecked className="peer sr-only" />
+                <div className="p-3 text-center rounded-xl bg-white/5 border border-white/10 text-white/60 peer-checked:bg-[var(--sky)]/20 peer-checked:border-[var(--sky)] peer-checked:text-[var(--sky)] transition-all hover:bg-white/10">
+                  <span className="text-sm font-bold uppercase tracking-wider">Operator</span>
+                </div>
+              </label>
+              <label className="relative cursor-pointer group">
+                <input type="radio" name="role" value="Admin" className="peer sr-only" />
+                <div className="p-3 text-center rounded-xl bg-white/5 border border-white/10 text-white/60 peer-checked:bg-[var(--sky)]/20 peer-checked:border-[var(--sky)] peer-checked:text-[var(--sky)] transition-all hover:bg-white/10">
+                  <span className="text-sm font-bold uppercase tracking-wider">Admin</span>
+                </div>
+              </label>
+            </div>
+          </div>
           <button 
             type="submit" 
             disabled={isPending}

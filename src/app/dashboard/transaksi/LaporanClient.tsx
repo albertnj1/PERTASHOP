@@ -1,11 +1,9 @@
 "use client";
 
 import { useState, useTransition, useEffect } from "react";
-import { createPortal } from "react-dom";
 import { 
-  Plus, X, Calendar, Wallet, CheckCircle2, XCircle, 
-  Loader2, Fuel, TrendingUp, TrendingDown, Info, Store, 
-  ChevronDown, ArrowLeft, Save, Layout
+  Plus, Calendar, CheckCircle2, XCircle, 
+  Loader2, Fuel, ChevronDown, ArrowLeft, Layout
 } from "lucide-react";
 import { createLaporan } from "@/lib/actions/laporan";
 
@@ -20,7 +18,6 @@ export default function LaporanClient({ pertashops, activeShift, bbmPrice, userR
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [notification, setNotification] = useState<{ type: "success" | "error"; message: string } | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
 
   // Form State for automatic calculations
   const [totalisator, setTotalisator] = useState({ awal: 0, akhir: 0 });
@@ -34,18 +31,10 @@ export default function LaporanClient({ pertashops, activeShift, bbmPrice, userR
   };
 
   useEffect(() => {
-    setIsMounted(true);
     const initialDate = new Date();
     const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
     setDayName(days[initialDate.getDay()]);
-    
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => { document.body.style.overflow = 'unset'; };
-  }, [isOpen]);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -78,11 +67,6 @@ export default function LaporanClient({ pertashops, activeShift, bbmPrice, userR
 
   const [testPump, setTestPump] = useState(0);
 
-  const penjualanLiter = Math.max(0, totalisator.akhir - totalisator.awal - testPump);
-  const totalGross = penjualanLiter * bbmPrice;
-  const totalExpense = pengeluaran.cashback + pengeluaran.biaya;
-  const totalNet = totalGross - totalExpense;
-
   return (
     <>
       {/* Action Button */}
@@ -109,9 +93,9 @@ export default function LaporanClient({ pertashops, activeShift, bbmPrice, userR
         </div>
       )}
 
-      {/* Modal / Centered Card UI */}
-      {isMounted && isOpen && createPortal(
-        <div className="fixed inset-0 z-[150] flex justify-center bg-black/80 backdrop-blur-md overflow-y-auto pt-10 pb-20 px-4 custom-scrollbar">
+      {/* Modal / Centered Card UI - Removed createPortal */}
+      {isOpen && (
+        <div className="fixed inset-0 z-[150] flex justify-center bg-black/80 backdrop-blur-md overflow-y-auto pt-10 pb-20 px-4">
           
           <div className="relative w-full max-w-2xl h-fit bg-[#0a101f] border border-white/10 rounded-[2.5rem] shadow-[0_0_80px_rgba(0,0,0,0.8)] overflow-hidden animate-in zoom-in duration-300">
             
@@ -309,25 +293,8 @@ export default function LaporanClient({ pertashops, activeShift, bbmPrice, userR
 
             </form>
           </div>
-        </div>,
-        document.body
+        </div>
       )}
-
-      <style jsx global>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(0, 0, 0, 0.2);
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 20px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 255, 255, 0.2);
-        }
-      `}</style>
     </>
   );
 }

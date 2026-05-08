@@ -94,6 +94,7 @@ model setoran {
   metode         setoran_metode?
   keterangan     String?
   shift_id       Int?
+  deleted_at     DateTime?
   laporan_harian laporan_harian? @relation(fields: [laporan_id], references: [id], onDelete: Restrict, onUpdate: Restrict)
 
   @@index([laporan_id])

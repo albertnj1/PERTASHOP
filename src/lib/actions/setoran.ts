@@ -25,8 +25,34 @@ export async function addSetoran(formData: FormData) {
 }
 
 export async function deleteSetoran(id: number) {
-  await prisma.setoran.delete({
+  // Soft delete: set deleted_at instead of deleting record
+  await prisma.setoran.update({
     where: { id },
+    data: { deleted_at: new Date() }
   });
-  revalidatePath("/dashboard/transaksi");
+  revalidatePath("/dashboard/setoran");
+  revalidatePath("/dashboard");
+}
+
+export async function restoreSetoran(id: number) {
+  await prisma.setoran.update({
+    where: { id },
+    data: { deleted_at: null }
+  });
+  revalidatePath("/dashboard/setoran");
+  revalidatePath("/dashboard");
+}
+
+export async function getDeletedSetoran() {
+  return await prisma.setoran.findMany({
+    where: { NOT: { deleted_at: null } },
+    orderBy: { deleted_at: 'desc' }
+  });
+}
+
+export async function permanentDeleteSetoran(id: number) {
+  await prisma.setoran.delete({
+    where: { id }
+  });
+  revalidatePath("/dashboard/setoran");
 }

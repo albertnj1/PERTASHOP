@@ -24,7 +24,7 @@ const NAV_ITEMS = [
 
 const MAIN_MENU = [
   { href: "/dashboard/transaksi", label: "Transaksi", icon: FileText },
-  { href: "/dashboard/rekap", label: "Rekap / Cetak", icon: Printer },
+  { href: "/dashboard/rekap", label: "Data Tersimpan", icon: FileText },
   { href: "/dashboard/setoran", label: "Setoran", icon: Wallet },
 ];
 

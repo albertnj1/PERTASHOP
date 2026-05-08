@@ -1,18 +1,22 @@
 import { prisma } from "@/lib/prisma";
-import { Wallet, Calendar, Trash2, Search } from "lucide-react";
+import { Wallet, Calendar, Search } from "lucide-react";
 import ShiftGuard from "@/components/ShiftGuard";
 import SetoranClient from "./SetoranClient";
+import TrashModal from "./TrashModal";
+import DeleteSetoranButton from "./DeleteSetoranButton";
 
 export default async function SetoranPage() {
-  const [setorans, activeShift] = await Promise.all([
+  const [allSetorans, activeShift] = await Promise.all([
     prisma.setoran.findMany({
       orderBy: { tanggal: 'desc' },
-      take: 50
     }),
     prisma.shifts.findFirst({ where: { status: 'open' } })
   ]);
 
-  const totalSetoran = setorans.reduce((acc, curr) => acc + (curr.jumlah || 0), 0);
+  const activeSetorans = allSetorans.filter(s => !s.deleted_at);
+  const deletedSetorans = allSetorans.filter(s => s.deleted_at);
+
+  const totalSetoran = activeSetorans.reduce((acc, curr) => acc + (curr.jumlah || 0), 0);
 
   return (
     <ShiftGuard 
@@ -38,6 +42,7 @@ export default async function SetoranPage() {
               </div>
             </div>
             
+            <TrashModal deletedItems={JSON.parse(JSON.stringify(deletedSetorans))} />
             <SetoranClient activeShift={activeShift} />
           </div>
         </div>
@@ -70,7 +75,7 @@ export default async function SetoranPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
-                {setorans.map((s) => (
+                {activeSetorans.map((s) => (
                   <tr key={s.id} className="hover:bg-white/[0.02] transition-colors group">
                     <td className="px-6 py-4">
                       <span className="font-medium text-white">{s.tanggal?.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })}</span>
@@ -89,15 +94,13 @@ export default async function SetoranPage() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors border border-red-500/20 cursor-pointer">
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                        <DeleteSetoranButton id={s.id} />
                       </div>
                     </td>
                   </tr>
                 ))}
                 
-                {setorans.length === 0 && (
+                {activeSetorans.length === 0 && (
                   <tr>
                     <td colSpan={5} className="px-6 py-12 text-center text-white/30 italic">
                       Belum ada data setoran yang tercatat.

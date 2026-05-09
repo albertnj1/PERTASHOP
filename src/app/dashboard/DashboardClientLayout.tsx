@@ -134,16 +134,17 @@ export default function DashboardClientLayout({
 
       <div className="app flex">
         {/* SIDEBAR - Desktop */}
-        <aside className="sidebar hidden md:block w-[var(--sidebar-w)] shrink-0 sticky top-[var(--nav-h)] h-[calc(100vh-var(--nav-h))] overflow-y-auto p-4">
-          <div className="mt-2">
+        <aside className="sidebar hidden md:block w-[var(--sidebar-w)] shrink-0 sticky top-[var(--nav-h)] h-[calc(100vh-var(--nav-h))] overflow-y-auto p-6 glass border-y-0 border-l-0 rounded-none bg-white/[0.01]">
+          <div className="mt-4">
+            <div className="text-[10px] font-black text-white/30 uppercase tracking-[4px] mb-6 px-4">Dashboard</div>
             {NAV_ITEMS.map(renderNavItem)}
 
-            <div className="my-4 border-t border-white/10 mx-2" />
-            <div className="text-xs font-semibold text-white/40 uppercase tracking-wider mb-3 px-3">Main Menu</div>
+            <div className="my-10 border-t border-white/5 mx-4" />
+            <div className="text-[10px] font-black text-white/30 uppercase tracking-[4px] mb-6 px-4">Main Menu</div>
             {MAIN_MENU.map(renderNavItem)}
 
-            <div className="my-4 border-t border-white/10 mx-2" />
-            <div className="text-xs font-semibold text-white/40 uppercase tracking-wider mb-3 px-3">Pengaturan</div>
+            <div className="my-10 border-t border-white/5 mx-4" />
+            <div className="text-[10px] font-black text-white/30 uppercase tracking-[4px] mb-6 px-4">Pengaturan</div>
             {SETTINGS_MENU.map(renderNavItem)}
           </div>
         </aside>
@@ -152,17 +153,16 @@ export default function DashboardClientLayout({
         {mobileMenuOpen && (
           <>
             <div
-              className="fixed inset-0 bg-black/60 z-30 md:hidden"
+              className="fixed inset-0 bg-black/60 z-30 md:hidden backdrop-blur-sm"
               onClick={() => setMobileMenuOpen(false)}
             />
             <aside
-              className="fixed left-0 top-[var(--nav-h)] bottom-0 w-[280px] z-40 md:hidden overflow-y-auto p-4 slide-in-from-left"
-              style={{ background: "var(--body-bg)", borderRight: "1px solid var(--glass-border)" }}
+              className="fixed left-0 top-[var(--nav-h)] bottom-0 w-[300px] z-40 md:hidden overflow-y-auto p-6 glass border-y-0 border-l-0 rounded-none bg-[#030712]/90 backdrop-blur-3xl animate-in slide-in-from-left duration-500"
             >
-              <div className="mt-2">
+              <div className="mt-4">
                 {NAV_ITEMS.map(renderNavItem)}
 
-                <div className="my-4 border-t border-white/10 mx-2" />
+                <div className="my-10 border-t border-white/5 mx-4" />
                 <div className="text-xs font-semibold text-white/40 uppercase tracking-wider mb-3 px-3">Main Menu</div>
                 {MAIN_MENU.map(renderNavItem)}
 
@@ -175,14 +175,14 @@ export default function DashboardClientLayout({
         )}
 
         {/* MAIN CONTENT */}
-        <main className="flex-1 overflow-y-auto p-4 md:p-10 relative">
-          <div className="max-w-[1200px] mx-auto">
+        <main className="flex-1 overflow-y-auto p-8 md:p-16 lg:p-20 relative selection:bg-[var(--sky)] selection:text-white">
+          <div className="max-w-[1700px] mx-auto animate-in fade-in slide-in-from-bottom-10 duration-1000">
             {children}
           </div>
           
-          {/* Subtle Background Glows */}
-          <div className="fixed top-[-10%] right-[-10%] w-[40%] h-[40%] bg-[var(--sky)]/5 blur-[120px] pointer-events-none z-[-1]" />
-          <div className="fixed bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-[var(--accent)]/5 blur-[120px] pointer-events-none z-[-1]" />
+          {/* Enhanced Background Mesh */}
+          <div className="fixed top-[-20%] right-[-10%] w-[60%] h-[60%] bg-[var(--sky)]/[0.07] blur-[140px] pointer-events-none z-[-1] animate-pulse" />
+          <div className="fixed bottom-[-20%] left-[-10%] w-[60%] h-[60%] bg-[var(--primary)]/[0.05] blur-[140px] pointer-events-none z-[-1]" />
         </main>
       </div>
     </div>

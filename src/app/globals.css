@@ -1,31 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --nav-h: 72px;
-  --sidebar-w: 260px;
+  --nav-h: 80px;
+  --sidebar-w: 280px;
   
   /* Vibrant Glass Palette */
   --primary: #0088FF;
   --sky: #00D1FF;
   --accent: #7000FF;
   
-  /* Theme Variables (Default Dark) */
-  --body-bg: #050B18;
+  /* Theme Variables (Deep & Vibrant Dark) */
+  --body-bg: #030712;
   --text-color: #FFFFFF;
-  --text-muted: rgba(255, 255, 255, 0.6);
-  --glass-bg: rgba(15, 23, 42, 0.4);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-  --glass-shadow-hover: 0 20px 60px rgba(0, 136, 255, 0.2);
-  --orb1: rgba(0, 136, 255, 0.4);
-  --orb2: rgba(112, 0, 255, 0.3);
-  --grid-color: rgba(255, 255, 255, 0.02);
-  --nav-bg: rgba(5, 11, 24, 0.6);
-  --input-bg: rgba(255, 255, 255, 0.05);
-  --input-border: rgba(255, 255, 255, 0.1);
+  --text-muted: rgba(255, 255, 255, 0.5);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  --glass-shadow-hover: 0 30px 80px rgba(0, 136, 255, 0.25);
+  --orb1: rgba(0, 136, 255, 0.6);
+  --orb2: rgba(112, 0, 255, 0.4);
+  --grid-color: rgba(255, 255, 255, 0.03);
+  --nav-bg: rgba(3, 7, 18, 0.4);
+  --input-bg: rgba(255, 255, 255, 0.02);
+  --input-border: rgba(255, 255, 255, 0.08);
   --input-focus: #00D1FF;
-  --card-radius: 28px;
-  --pill-radius: 50px;
+  --card-radius: 32px;
+  --pill-radius: 60px;
 }
 
 body.light-mode {
@@ -61,79 +61,74 @@ body::before, body::after {
   content: '';
   position: fixed;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(140px);
   z-index: -1;
   pointer-events: none;
-  opacity: 0.6;
+  opacity: 0.5;
+  animation: orbFloat 20s infinite alternate ease-in-out;
 }
 
 body::before {
-  width: 600px; height: 600px;
+  width: 800px; height: 800px;
   background: var(--orb1);
-  top: -200px; left: -200px;
+  top: -200px; right: -200px;
 }
 
 body::after {
-  width: 500px; height: 500px;
+  width: 700px; height: 700px;
   background: var(--orb2);
-  bottom: -150px; right: -150px;
+  bottom: -200px; left: -200px;
+  animation-delay: -10s;
 }
 
-@keyframes pulseOrb {
-  0% { transform: scale(1) translate(0, 0); opacity: 0.5; }
-  100% { transform: scale(1.2) translate(30px, 30px); opacity: 0.8; }
+@keyframes orbFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(100px, 50px) scale(1.2); }
 }
 
 /* Liquid Glass Components */
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   border-radius: var(--card-radius);
 }
 
 .card-glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(24px) saturate(180%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
   border: 1px solid var(--glass-border);
   box-shadow: 
-    0 10px 40px rgba(0, 0, 0, 0.2),
-    inset 0 0 20px rgba(255, 255, 255, 0.05);
+    0 10px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   border-radius: var(--card-radius);
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   padding: 30px;
   position: relative;
   overflow: hidden;
 }
 
-.card-glass::before {
+.card-glass::after {
   content: '';
   position: absolute;
   top: 0;
-  left: -100%;
-  width: 100%;
+  left: 0;
+  right: 0;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.05),
-    transparent
-  );
-  transition: 0.5s;
-}
-
-.card-glass:hover::before {
-  left: 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+  pointer-events: none;
 }
 
 .card-glass:hover {
-  transform: translateY(-8px) scale(1.01);
+  transform: translateY(-10px) scale(1.02);
   box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.3),
-    inset 0 0 20px rgba(255, 255, 255, 0.1);
-  border-color: rgba(0, 209, 255, 0.4);
+    0 30px 70px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(0, 209, 255, 0.5);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.01));
 }
 
 /* BUTTONS */

@@ -80,20 +80,20 @@ export default function ProfitLossChart({ data }: { data: ChartData[] }) {
             type="monotone"
             dataKey="penjualan"
             stroke="var(--sky)"
-            strokeWidth={4}
+            strokeWidth={6}
             fillOpacity={1}
             fill="url(#colorPenjualan)"
-            animationDuration={2000}
+            animationDuration={2500}
             filter="url(#glow)"
           />
           <Area
             type="monotone"
             dataKey="profit"
             stroke="var(--accent)"
-            strokeWidth={4}
+            strokeWidth={6}
             fillOpacity={1}
             fill="url(#colorProfit)"
-            animationDuration={2000}
+            animationDuration={2500}
             filter="url(#glow)"
           />
         </AreaChart>

@@ -66,43 +66,41 @@ export default function SetoranClient({ activeShift }: SetoranClientProps) {
         </div>
       )}
 
-      {isMounted && isOpen && createPortal(
-        <div className="fixed inset-0 z-[150] flex justify-center bg-black/80 backdrop-blur-md overflow-y-auto pt-10 pb-20 px-4 custom-scrollbar">
-          
-          <div className="relative w-full max-w-lg h-fit bg-[#0a101f] border border-white/10 rounded-[2.5rem] shadow-[0_0_80px_rgba(0,0,0,0.8)] overflow-hidden animate-in zoom-in duration-300">
-            
-            {/* Inner Glow */}
+      {isOpen && (
+        <div className="fixed inset-0 z-[150] flex justify-center bg-black/60 backdrop-blur-xl overflow-y-auto pt-10 pb-20 px-4 animate-in fade-in duration-300">
+          <div className="relative w-full max-w-lg h-fit glass card-glass rounded-[40px] border-white/5 shadow-[0_0_100px_rgba(0,0,0,0.5)] overflow-hidden animate-in zoom-in duration-500">
+            {/* Header Glow */}
             <div className="absolute top-0 inset-x-0 h-64 bg-gradient-to-b from-emerald-500/10 to-transparent pointer-events-none" />
 
-            <form onSubmit={handleSubmit} className="relative p-8 md:p-12 space-y-8 flex flex-col items-center">
+            <form onSubmit={handleSubmit} className="relative p-10 md:p-14 space-y-10 flex flex-col items-center">
               <input type="hidden" name="shift_id" value={activeShift?.id || ""} />
               <input type="hidden" name="metode" value="tunai" />
 
               {/* Header Icon */}
-              <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-[1.5rem] flex items-center justify-center shadow-[0_8px_20px_rgba(16,185,129,0.3)] mb-2">
-                <Banknote className="w-10 h-10 text-white" />
+              <div className="w-24 h-24 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-[32px] flex items-center justify-center shadow-[0_15px_35px_rgba(16,185,129,0.3)] mb-2 group">
+                <Banknote className="w-12 h-12 text-white group-hover:scale-110 transition-transform duration-500" />
               </div>
 
               {/* Title Section */}
-              <div className="text-center space-y-2 mb-4">
-                <h2 className="text-3xl font-black tracking-tight text-white m-0">Input Setoran</h2>
-                <p className="text-sm opacity-50 font-medium">Catat dana yang disetorkan ke pusat</p>
+              <div className="text-center space-y-3 mb-4">
+                <h2 className="text-4xl font-black tracking-tight text-white m-0">Input Setoran</h2>
+                <p className="text-sm text-[var(--text-muted)] font-bold uppercase tracking-widest">Catat dana setoran ke pusat</p>
               </div>
 
-              <div className="w-full space-y-6">
-                <div className="space-y-3">
-                  <label className="text-sm font-bold text-white/80 px-1">Tanggal</label>
+              <div className="w-full space-y-10">
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">Tanggal</label>
                   <input 
                     type="date" 
                     name="tanggal" 
                     required 
                     defaultValue={new Date().toISOString().split('T')[0]}
-                    className="w-full bg-[#0a101f] border border-white/10 rounded-2xl py-4 px-6 text-white outline-none focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 transition-all"
+                    className="input-glass w-full focus:scale-[1.02]"
                   />
                 </div>
 
-                <div className="space-y-3">
-                  <label className="text-sm font-bold text-white/80 px-1">Jumlah Setoran (Rp)</label>
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">Jumlah Setoran</label>
                   <div className="relative flex items-center">
                      <span className="absolute left-6 text-emerald-400 font-bold text-xl">Rp</span>
                      <input 
@@ -110,28 +108,28 @@ export default function SetoranClient({ activeShift }: SetoranClientProps) {
                       name="jumlah" 
                       placeholder="0"
                       required
-                      className="w-full bg-[#0a101f] border border-white/10 rounded-2xl py-5 pl-16 pr-6 text-2xl font-black text-white outline-none focus:border-emerald-500/50 transition-all"
+                      className="input-glass w-full py-6 pl-16 pr-6 text-2xl font-black focus:scale-[1.02]"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  <label className="text-sm font-bold text-white/80 px-1">Keterangan Tambahan</label>
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">Keterangan Tambahan</label>
                   <textarea 
                     name="keterangan" 
                     rows={4}
                     placeholder="Tulis catatan jika ada..."
-                    className="w-full bg-[#0a101f] border border-white/10 rounded-2xl py-4 px-6 text-white outline-none focus:border-emerald-500/50 transition-all resize-none"
+                    className="input-glass w-full py-5 px-6 resize-none focus:scale-[1.02]"
                   />
                 </div>
               </div>
 
               {/* Submit Section */}
-              <div className="w-full pt-8 space-y-6 flex flex-col items-center">
+              <div className="w-full pt-10 space-y-8 flex flex-col items-center">
                 <button 
                   type="submit"
                   disabled={isPending}
-                  className="w-full py-5 rounded-[1.5rem] bg-gradient-to-r from-emerald-400 to-emerald-600 text-white font-black text-xl tracking-wide shadow-[0_12px_24px_rgba(16,185,129,0.3)] hover:shadow-[0_15px_30px_rgba(16,185,129,0.5)] active:scale-[0.98] transition-all disabled:opacity-50 flex items-center justify-center gap-3 border-0 cursor-pointer"
+                  className="btn-primary-glass w-full py-5 text-xl bg-emerald-500 shadow-emerald-500/20"
                 >
                   {isPending ? (
                     <>
@@ -146,18 +144,18 @@ export default function SetoranClient({ activeShift }: SetoranClientProps) {
                 <button 
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="text-white/50 hover:text-white font-bold transition-all flex items-center gap-2 border-0 bg-transparent cursor-pointer no-underline"
+                  className="text-[var(--text-muted)] hover:text-white font-bold transition-all flex items-center gap-2 border-0 bg-transparent cursor-pointer no-underline group"
                   disabled={isPending}
                 >
-                  <ArrowLeft className="w-4 h-4" />
+                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                   <span>Kembali ke Dashboard</span>
                 </button>
               </div>
 
             </form>
           </div>
-        </div>,
-        document.body
+        </div>
+      )}
       )}
     </>
   );

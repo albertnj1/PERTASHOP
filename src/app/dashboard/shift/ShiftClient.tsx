@@ -164,46 +164,54 @@ export default function ShiftClient({ initialActiveShift, initialHistory, initia
       {/* Notification Toast */}
       {notification && (
         <div
-          className={`fixed top-6 right-6 z-50 flex items-center gap-3 px-6 py-4 rounded-2xl shadow-2xl border transition-all duration-500 animate-in slide-in-from-right ${
+          className={`fixed top-10 right-10 z-50 flex items-center gap-4 px-7 py-5 rounded-[24px] shadow-2xl border transition-all duration-500 animate-in slide-in-from-right ${
             notification.type === "success"
               ? "bg-emerald-500/20 border-emerald-500/30 text-emerald-300"
               : "bg-red-500/20 border-red-500/30 text-red-300"
           }`}
-          style={{ backdropFilter: "blur(20px)" }}
+          style={{ backdropFilter: "blur(24px)" }}
         >
-          {notification.type === "success" ? (
-            <CheckCircle2 className="w-5 h-5 shrink-0" />
-          ) : (
-            <XCircle className="w-5 h-5 shrink-0" />
-          )}
-          <span className="font-medium text-sm">{notification.message}</span>
+          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${notification.type === "success" ? "bg-emerald-500/20" : "bg-red-500/20"}`}>
+            {notification.type === "success" ? (
+              <CheckCircle2 className="w-5 h-5 shrink-0" />
+            ) : (
+              <XCircle className="w-5 h-5 shrink-0" />
+            )}
+          </div>
+          <span className="font-bold text-sm tracking-tight">{notification.message}</span>
         </div>
       )}
 
       {/* Header */}
-      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-8">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 mb-10">
         <div>
-          <h2 className="text-2xl font-bold mb-1 flex items-center gap-3">
-            <Clock className="w-7 h-7 text-[var(--sky)]" />
+          <h2 className="text-3xl font-extrabold mb-1 flex items-center gap-4">
+            <div className="w-12 h-12 rounded-[20px] bg-[var(--sky)]/20 flex items-center justify-center">
+              <Clock className="w-6 h-6 text-[var(--sky)]" />
+            </div>
             Kelola Shift
           </h2>
-          <p className="text-white/60 m-0">Buka dan tutup shift operasional secara real-time</p>
+          <p className="text-[var(--text-muted)] font-medium m-0">Buka dan tutup shift operasional secara real-time</p>
         </div>
 
-        <div className="flex flex-wrap gap-3 w-full lg:w-auto">
+        <div className="flex flex-wrap gap-4 w-full lg:w-auto">
           {/* Stats Badges */}
-          <div className="glass px-5 py-3 flex items-center gap-3 bg-[var(--sky)]/10 border-[var(--sky)]/20">
-            <Calendar className="w-4 h-4 text-[var(--sky)]" />
+          <div className="glass px-6 py-4 rounded-[24px] flex items-center gap-4 border-white/5">
+            <div className="w-10 h-10 rounded-2xl bg-[var(--sky)]/20 flex items-center justify-center">
+              <Calendar className="w-5 h-5 text-[var(--sky)]" />
+            </div>
             <div>
-              <p className="text-[10px] uppercase font-bold tracking-wider opacity-60 m-0">Shift Hari Ini</p>
-              <p className="text-base font-bold text-[var(--sky)] m-0">{stats.todayShifts}</p>
+              <p className="text-[10px] uppercase font-black tracking-widest text-[var(--text-muted)] m-0">Shift Hari Ini</p>
+              <p className="text-lg font-black text-[var(--text-color)] m-0">{stats.todayShifts}</p>
             </div>
           </div>
-          <div className="glass px-5 py-3 flex items-center gap-3 bg-purple-500/10 border-purple-500/20">
-            <History className="w-4 h-4 text-purple-400" />
+          <div className="glass px-6 py-4 rounded-[24px] flex items-center gap-4 border-white/5">
+            <div className="w-10 h-10 rounded-2xl bg-[var(--accent)]/20 flex items-center justify-center">
+              <History className="w-5 h-5 text-[var(--accent)]" />
+            </div>
             <div>
-              <p className="text-[10px] uppercase font-bold tracking-wider opacity-60 m-0">Total Shift</p>
-              <p className="text-base font-bold text-purple-400 m-0">{stats.totalShifts}</p>
+              <p className="text-[10px] uppercase font-black tracking-widest text-[var(--text-muted)] m-0">Total Shift</p>
+              <p className="text-lg font-black text-[var(--text-color)] m-0">{stats.totalShifts}</p>
             </div>
           </div>
         </div>
@@ -211,10 +219,10 @@ export default function ShiftClient({ initialActiveShift, initialHistory, initia
 
       {/* Active Shift Card - HERO */}
       <div
-        className={`glass card-glass mb-8 relative overflow-hidden transition-all duration-700 ${
+        className={`glass card-glass mb-10 relative overflow-hidden transition-all duration-700 rounded-[32px] ${
           isShiftOpen
-            ? "border-emerald-500/30 shadow-[0_0_60px_rgba(16,185,129,0.15)]"
-            : "border-white/10"
+            ? "border-emerald-500/20 shadow-[0_0_80px_rgba(16,185,129,0.1)]"
+            : "border-white/5"
         }`}
       >
         {/* Animated background glow for active shift */}
@@ -222,135 +230,141 @@ export default function ShiftClient({ initialActiveShift, initialHistory, initia
           <div
             className="absolute inset-0 pointer-events-none transition-opacity duration-[2000ms]"
             style={{
-              background: "radial-gradient(ellipse at 50% 0%, rgba(16,185,129,0.08), transparent 70%)",
+              background: "radial-gradient(circle at 50% 0%, rgba(16,185,129,0.1), transparent 70%)",
               opacity: pulseEffect ? 1 : 0.5,
             }}
           />
         )}
 
-        <div className="relative z-10 p-8">
+        <div className="relative z-10 p-10">
           {/* Status Badge */}
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between mb-10">
+            <div className={`px-5 py-2.5 rounded-full flex items-center gap-3 border ${isShiftOpen ? 'bg-emerald-500/10 border-emerald-500/20' : 'bg-white/5 border-white/10'}`}>
               <div
-                className={`w-3 h-3 rounded-full ${
+                className={`w-2.5 h-2.5 rounded-full ${
                   isShiftOpen
                     ? "bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)] animate-pulse"
                     : "bg-white/20"
                 }`}
               />
               <span
-                className={`text-sm font-bold uppercase tracking-widest ${
-                  isShiftOpen ? "text-emerald-400" : "text-white/40"
+                className={`text-[10px] font-black uppercase tracking-[2px] ${
+                  isShiftOpen ? "text-emerald-400" : "text-[var(--text-muted)]"
                 }`}
               >
-                {isShiftOpen ? "Shift Sedang Berjalan" : "Tidak Ada Shift Aktif"}
+                {isShiftOpen ? "Shift Aktif" : "Sistem Tertutup"}
               </span>
             </div>
 
             {isShiftOpen && (
-              <div className="flex items-center gap-2 text-xs text-white/40">
-                <Users className="w-4 h-4" />
-                <span>Operator: <strong className="text-white/80">{activeShift?.operatorName}</strong></span>
+              <div className="flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/5 border border-white/5">
+                <Users className="w-4 h-4 text-[var(--text-muted)]" />
+                <span className="text-[11px] font-bold text-[var(--text-muted)]">Operator: <strong className="text-[var(--text-color)]">{activeShift?.operatorName}</strong></span>
               </div>
             )}
           </div>
 
           {/* Timer Display */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-10">
             {isShiftOpen ? (
               <>
-                <div className="mb-3 flex items-center justify-center gap-2 text-white/50 text-sm">
+                <div className="mb-4 flex items-center justify-center gap-3 text-[var(--text-muted)] text-[11px] font-black uppercase tracking-[3px]">
                   <Timer className="w-4 h-4" />
-                  <span>Durasi Shift</span>
+                  <span>Waktu Berjalan</span>
                 </div>
                 <div
-                  className="font-mono text-6xl md:text-7xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-emerald-400 to-teal-300"
+                  className="font-black text-6xl md:text-8xl tracking-tight text-[var(--text-color)]"
                   style={{
-                    textShadow: "0 0 40px rgba(52,211,153,0.3)",
+                    textShadow: "0 10px 40px rgba(0,0,0,0.2)",
                   }}
                 >
                   {elapsed}
                 </div>
-                <div className="mt-4 flex items-center justify-center gap-6 text-sm text-white/50">
-                  <span>
-                    Buka: <strong className="text-white/80">{formatTime(activeShift?.jam_buka || null)}</strong>
-                  </span>
-                  <span className="text-white/20">|</span>
-                  <span>{formatDate(activeShift?.jam_buka || null)}</span>
+                <div className="mt-8 flex items-center justify-center gap-8 text-[13px] font-bold text-[var(--text-muted)]">
+                  <div className="flex items-center gap-2">
+                    <span className="opacity-40">BUKA:</span>
+                    <span className="text-[var(--text-color)]">{formatTime(activeShift?.jam_buka || null)}</span>
+                  </div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+                  <div className="flex items-center gap-2">
+                    <span className="text-[var(--text-color)] uppercase">{formatDate(activeShift?.jam_buka || null)}</span>
+                  </div>
                 </div>
               </>
             ) : (
               <>
-                <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-                  <Zap className="w-12 h-12 text-white/20" />
+                <div className="w-28 h-28 mx-auto mb-8 rounded-[32px] bg-white/5 border border-white/5 flex items-center justify-center shadow-inner">
+                  <Zap className="w-12 h-12 text-[var(--text-muted)] opacity-20" />
                 </div>
-                <h3 className="text-xl font-semibold text-white/60 mb-2">Belum Ada Shift Aktif</h3>
-                <p className="text-white/40 text-sm">Buka shift untuk memulai operasional hari ini</p>
+                <h3 className="text-2xl font-extrabold text-[var(--text-color)] mb-2">Belum Ada Shift Aktif</h3>
+                <p className="text-[var(--text-muted)] font-medium text-sm">Buka shift untuk memulai operasional hari ini</p>
               </>
             )}
           </div>
 
           {/* Shift Stats for Active Shift */}
           {isShiftOpen && (
-            <div className="grid grid-cols-2 gap-4 mb-8 max-w-md mx-auto">
-              <div className="bg-white/5 rounded-2xl p-4 text-center border border-white/5">
-                <Activity className="w-5 h-5 mx-auto mb-2 text-[var(--sky)]" />
-                <p className="text-2xl font-bold">{stats.activeTransactions}</p>
-                <p className="text-[10px] uppercase font-semibold tracking-wider text-white/40 mt-1">Transaksi</p>
+            <div className="grid grid-cols-2 gap-6 mb-10 max-w-md mx-auto">
+              <div className="glass rounded-[24px] p-6 text-center border-white/5">
+                <div className="w-10 h-10 rounded-2xl bg-[var(--sky)]/20 flex items-center justify-center mx-auto mb-4">
+                  <Activity className="w-5 h-5 text-[var(--sky)]" />
+                </div>
+                <p className="text-3xl font-black">{stats.activeTransactions}</p>
+                <p className="text-[10px] uppercase font-black tracking-widest text-[var(--text-muted)] mt-2">Total Transaksi</p>
               </div>
-              <div className="bg-white/5 rounded-2xl p-4 text-center border border-white/5">
-                <TrendingUp className="w-5 h-5 mx-auto mb-2 text-amber-400" />
-                <p className="text-2xl font-bold">Rp {stats.activeRevenue.toLocaleString("id-ID")}</p>
-                <p className="text-[10px] uppercase font-semibold tracking-wider text-white/40 mt-1">Pendapatan</p>
+              <div className="glass rounded-[24px] p-6 text-center border-white/5">
+                <div className="w-10 h-10 rounded-2xl bg-amber-500/20 flex items-center justify-center mx-auto mb-4">
+                  <TrendingUp className="w-5 h-5 text-amber-400" />
+                </div>
+                <p className="text-3xl font-black">Rp {stats.activeRevenue.toLocaleString("id-ID")}</p>
+                <p className="text-[10px] uppercase font-black tracking-widest text-[var(--text-muted)] mt-2">Pendapatan</p>
               </div>
             </div>
           )}
 
           {/* Action Buttons */}
-          <div className="flex justify-center gap-4">
+          <div className="flex justify-center gap-5">
             {!isShiftOpen ? (
               <button
                 onClick={handleOpenShift}
                 disabled={isPending}
-                className="group relative flex items-center gap-3 px-10 py-4 rounded-2xl font-bold text-lg transition-all duration-300 bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-[0_8px_30px_rgba(16,185,129,0.4)] hover:shadow-[0_12px_40px_rgba(16,185,129,0.6)] hover:-translate-y-1 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed border border-emerald-400/30"
+                className="btn-primary-glass px-14 py-5 text-xl min-w-[240px]"
               >
-                <Play className="w-6 h-6 transition-transform group-hover:scale-110" />
-                {isPending ? "Membuka Shift..." : "Buka Shift"}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Play className="w-7 h-7 fill-white" />
+                {isPending ? "Membuka..." : "Buka Shift Baru"}
               </button>
             ) : (
               <>
                 {!showConfirmClose ? (
                   <button
                     onClick={() => setShowConfirmClose(true)}
-                    className="group relative flex items-center gap-3 px-10 py-4 rounded-2xl font-bold text-lg transition-all duration-300 bg-gradient-to-r from-red-500 to-rose-500 text-white shadow-[0_8px_30px_rgba(239,68,68,0.3)] hover:shadow-[0_12px_40px_rgba(239,68,68,0.5)] hover:-translate-y-1 active:translate-y-0 border border-red-400/30"
+                    className="btn-primary-glass bg-gradient-to-br from-red-500 to-rose-600 px-14 py-5 text-xl min-w-[240px] shadow-red-500/20"
                   >
-                    <Square className="w-6 h-6 transition-transform group-hover:scale-110" />
-                    Tutup Shift
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Square className="w-7 h-7 fill-white" />
+                    Akhiri Shift
                   </button>
                 ) : (
-                  <div className="glass p-6 rounded-2xl border-amber-500/30 bg-amber-500/10 max-w-sm text-center">
-                    <AlertTriangle className="w-8 h-8 text-amber-400 mx-auto mb-3" />
-                    <h4 className="font-bold text-lg mb-2 text-amber-300">Konfirmasi Tutup Shift</h4>
-                    <p className="text-sm text-white/60 mb-5">
-                      Yakin ingin menutup shift? Durasi shift:{" "}
-                      <strong className="text-white">{elapsed}</strong>
+                  <div className="glass p-8 rounded-[32px] border-amber-500/20 bg-amber-500/5 max-w-md text-center animate-in zoom-in duration-300">
+                    <div className="w-16 h-16 rounded-[20px] bg-amber-500/20 flex items-center justify-center mx-auto mb-4">
+                      <AlertTriangle className="w-8 h-8 text-amber-400" />
+                    </div>
+                    <h4 className="font-extrabold text-xl mb-2 text-amber-100">Konfirmasi Tutup Shift</h4>
+                    <p className="text-sm text-amber-100/60 font-medium mb-8">
+                      Anda akan menutup sesi kerja hari ini. Durasi total: <b className="text-amber-400">{elapsed}</b>
                     </p>
-                    <div className="flex gap-3 justify-center">
+                    <div className="flex gap-4 justify-center">
                       <button
                         onClick={() => setShowConfirmClose(false)}
-                        className="px-6 py-2.5 rounded-xl bg-white/10 text-white font-semibold hover:bg-white/20 transition-colors border border-white/10"
+                        className="btn-secondary-glass px-8 py-3 text-sm"
                       >
                         Batal
                       </button>
                       <button
                         onClick={handleCloseShift}
                         disabled={isPending}
-                        className="px-6 py-2.5 rounded-xl bg-red-500 text-white font-semibold hover:bg-red-600 transition-colors shadow-lg disabled:opacity-50"
+                        className="btn-primary-glass bg-red-500 px-8 py-3 text-sm shadow-red-500/20"
                       >
-                        {isPending ? "Menutup..." : "Ya, Tutup Shift"}
+                        {isPending ? "Menutup..." : "Ya, Tutup"}
                       </button>
                     </div>
                   </div>
@@ -362,56 +376,55 @@ export default function ShiftClient({ initialActiveShift, initialHistory, initia
       </div>
 
       {/* Shift History */}
-      <div className="glass overflow-hidden border-white/10 shadow-2xl">
-        <div className="p-6 border-b border-white/10 bg-white/5 flex items-center justify-between">
-          <h3 className="font-bold flex items-center gap-2 m-0">
-            <History className="w-5 h-5 text-[var(--sky)]" />
-            Riwayat Shift
+      <div className="glass overflow-hidden border-white/5 rounded-[32px]">
+        <div className="p-8 border-b border-white/5 flex items-center justify-between">
+          <h3 className="font-extrabold text-xl flex items-center gap-4 m-0">
+            <div className="w-10 h-10 rounded-2xl bg-[var(--accent)]/20 flex items-center justify-center">
+              <History className="w-5 h-5 text-[var(--accent)]" />
+            </div>
+            Riwayat Aktivitas
           </h3>
-          <span className="text-xs text-white/40 bg-white/5 px-3 py-1 rounded-full">
-            {history.length} shift terakhir
+          <span className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] bg-white/5 px-4 py-2 rounded-full border border-white/5">
+            {history.length} sesi terakhir
           </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-white/5">
-                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-white/40">Status</th>
-                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-white/40">Operator</th>
-                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-white/40">Tanggal</th>
-                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-white/40">Jam Buka</th>
-                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-white/40">Jam Tutup</th>
-                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-white/40 text-right">
-                  Durasi
-                </th>
+              <tr className="bg-white/[0.02]">
+                <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)]">Status</th>
+                <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)]">Operator</th>
+                <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)]">Tanggal</th>
+                <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)]">Waktu Sesi</th>
+                <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] text-right">Durasi Total</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
               {history.map((shift) => (
-                <tr key={shift.id} className="hover:bg-white/[0.02] transition-colors group">
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2">
+                <tr key={shift.id} className="hover:bg-white/[0.03] transition-colors group">
+                  <td className="px-8 py-6">
+                    <div className="flex items-center gap-3">
                       <div
                         className={`w-2.5 h-2.5 rounded-full ${
                           shift.status === "open"
                             ? "bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)] animate-pulse"
-                            : "bg-white/20"
+                            : "bg-white/10"
                         }`}
                       />
                       <span
-                        className={`text-xs font-bold uppercase tracking-wider ${
-                          shift.status === "open" ? "text-emerald-400" : "text-white/50"
+                        className={`text-[10px] font-black uppercase tracking-widest ${
+                          shift.status === "open" ? "text-emerald-400" : "text-[var(--text-muted)]"
                         }`}
                       >
                         {shift.status === "open" ? "Aktif" : "Selesai"}
                       </span>
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className="font-medium text-sm">{shift.operatorName}</span>
+                  <td className="px-8 py-6">
+                    <span className="font-extrabold text-sm text-[var(--text-color)]">{shift.operatorName}</span>
                   </td>
-                  <td className="px-6 py-4 text-sm text-white/70">
+                  <td className="px-8 py-6 text-[13px] font-bold text-[var(--text-muted)]">
                     {shift.jam_buka
                       ? new Date(shift.jam_buka).toLocaleDateString("id-ID", {
                           day: "2-digit",
@@ -420,18 +433,19 @@ export default function ShiftClient({ initialActiveShift, initialHistory, initia
                         })
                       : "-"}
                   </td>
-                  <td className="px-6 py-4">
-                    <span className="font-mono text-sm text-emerald-400/80">{formatTime(shift.jam_buka)}</span>
+                  <td className="px-8 py-6">
+                    <div className="flex items-center gap-3 font-mono text-[13px]">
+                      <span className="text-emerald-400/80 font-bold">{formatTime(shift.jam_buka)}</span>
+                      <span className="opacity-20">→</span>
+                      <span className="text-rose-400/80 font-bold">{formatTime(shift.jam_tutup)}</span>
+                    </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className="font-mono text-sm text-rose-400/80">{formatTime(shift.jam_tutup)}</span>
-                  </td>
-                  <td className="px-6 py-4 text-right">
+                  <td className="px-8 py-6 text-right">
                     <span
-                      className={`text-sm font-semibold px-3 py-1 rounded-lg ${
+                      className={`text-[11px] font-black px-4 py-1.5 rounded-full border ${
                         shift.status === "open"
-                          ? "bg-emerald-500/10 text-emerald-400"
-                          : "bg-white/5 text-white/60"
+                          ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                          : "bg-white/5 text-[var(--text-muted)] border-white/5"
                       }`}
                     >
                       {shift.status === "open" && shift.jam_buka
@@ -444,9 +458,11 @@ export default function ShiftClient({ initialActiveShift, initialHistory, initia
 
               {history.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-6 py-16 text-center text-white/30 italic">
-                    <Clock className="w-12 h-12 mx-auto mb-4 opacity-20" />
-                    Belum ada riwayat shift.
+                  <td colSpan={5} className="px-8 py-24 text-center">
+                    <div className="w-20 h-20 rounded-[24px] bg-white/5 flex items-center justify-center mx-auto mb-6">
+                      <Clock className="w-10 h-10 text-[var(--text-muted)] opacity-20" />
+                    </div>
+                    <p className="text-[var(--text-muted)] font-bold italic">Belum ada riwayat shift yang tercatat.</p>
                   </td>
                 </tr>
               )}

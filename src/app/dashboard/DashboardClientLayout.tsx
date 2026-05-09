@@ -66,14 +66,21 @@ export default function DashboardClientLayout({
         href={item.href}
         prefetch={true}
         onClick={() => setMobileMenuOpen(false)}
-        className={`flex items-center gap-4 p-4 rounded-[20px] transition-all duration-300 no-underline mb-1 ${
+        className={`flex items-center gap-4 p-4 rounded-[24px] transition-all duration-500 no-underline mb-2 group relative overflow-hidden ${
           active
-            ? "bg-gradient-to-r from-[var(--sky)]/20 to-transparent text-[var(--sky)] font-bold border-l-4 border-[var(--sky)] shadow-[10px_0_20px_rgba(0,136,255,0.05)]"
-            : "text-[var(--text-muted)] hover:bg-white/5 hover:text-[var(--text-color)]"
+            ? "bg-white/10 text-white font-black shadow-[0_10px_30px_rgba(0,0,0,0.1)] border border-white/10"
+            : "text-[var(--text-muted)] hover:bg-white/5 hover:text-white"
         }`}
       >
-        <Icon className={`w-5 h-5 shrink-0 ${active ? 'text-[var(--sky)]' : ''}`} />
-        <span className="text-[15px]">{item.label}</span>
+        {active && (
+          <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-[var(--sky)] to-[var(--primary)] shadow-[2px_0_15px_var(--sky)]" />
+        )}
+        <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 ${
+          active ? "bg-[var(--sky)]/20 text-[var(--sky)] scale-110" : "bg-white/5 text-[var(--text-muted)] group-hover:bg-white/10 group-hover:text-white"
+        }`}>
+          <Icon className="w-5 h-5" />
+        </div>
+        <span className="text-sm uppercase tracking-[2px] font-bold">{item.label}</span>
       </Link>
     );
   };
@@ -81,36 +88,44 @@ export default function DashboardClientLayout({
   return (
     <div className="min-h-screen">
       {/* NAVBAR */}
-      <nav className="navbar px-5 lg:px-8 flex justify-between items-center h-[var(--nav-h)] sticky top-0 z-40">
-        <div className="flex items-center gap-3">
+      <nav className="navbar px-6 lg:px-12 flex justify-between items-center h-[var(--nav-h)] sticky top-0 z-40 backdrop-blur-xl border-b border-white/5">
+        <div className="flex items-center gap-4">
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/10 text-white/80 hover:bg-white/15 transition-colors cursor-pointer"
+            className="md:hidden w-11 h-11 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 text-white/80 hover:bg-white/10 transition-all cursor-pointer"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
 
-          <Link href="/dashboard" prefetch={true} className="flex items-center gap-3 no-underline">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--sky)] to-[var(--primary)] flex items-center justify-center text-white shadow-md">
-              <Fuel className="w-5 h-5" />
+          <Link href="/dashboard" prefetch={true} className="flex items-center gap-4 no-underline group">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[var(--sky)] to-[var(--primary)] flex items-center justify-center text-white shadow-[0_8px_20px_rgba(0,136,255,0.3)] group-hover:scale-110 transition-transform duration-500">
+              <Fuel className="w-6 h-6" />
             </div>
-            <h4 className="m-0 font-bold text-xl hidden sm:block text-white">Pertashop</h4>
+            <div className="hidden sm:block">
+              <h4 className="m-0 font-black text-2xl tracking-tight text-white">PERTASHOP</h4>
+              <p className="m-0 text-[9px] font-black uppercase tracking-[3px] text-[var(--sky)] opacity-80">Management System</p>
+            </div>
           </Link>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
           <div className="text-right hidden sm:block">
-            <div className="text-sm font-semibold opacity-90">{user.nama}</div>
-            <div className="text-xs text-[var(--sky)] uppercase font-bold">{user.role}</div>
+            <div className="text-xs font-black uppercase tracking-widest text-white">{user.nama}</div>
+            <div className="text-[10px] text-[var(--sky)] uppercase font-black tracking-[2px]">{user.role}</div>
           </div>
-          <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
-            <Users className="w-5 h-5 text-white/80" />
+          
+          <div className="w-11 h-11 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group hover:border-[var(--sky)]/30 transition-all cursor-pointer">
+            <Users className="w-5 h-5 text-white/60 group-hover:text-[var(--sky)] transition-colors" />
           </div>
+          
           <ThemeToggle />
+          
+          <div className="h-8 w-px bg-white/5 mx-1" />
+          
           <button
             onClick={handleLogout}
-            className="ml-2 w-10 h-10 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center hover:bg-red-500/40 hover:text-white transition-colors cursor-pointer border-0"
+            className="w-11 h-11 rounded-2xl bg-rose-500/10 text-rose-400 flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all cursor-pointer border-0 shadow-lg shadow-rose-500/5"
           >
             <LogOut className="w-5 h-5" />
           </button>

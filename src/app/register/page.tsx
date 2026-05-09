@@ -19,67 +19,71 @@ export default function RegisterPage() {
   }, [state, router]);
 
   return (
-    <div className="flex justify-center items-center min-h-screen py-10 relative">
-      <div className="absolute top-6 right-6">
+    <div className="flex justify-center items-center min-h-screen py-10 relative overflow-hidden">
+      {/* Background Glows */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[var(--sky)]/10 blur-[150px] rounded-full animate-pulse" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[var(--primary)]/10 blur-[150px] rounded-full" />
+      </div>
+
+      <div className="absolute top-8 right-8 z-50">
         <ThemeToggle />
       </div>
 
-      <div className="glass card-glass w-full max-w-[480px] m-5 px-[35px] py-[45px]">
-        <div className="text-center mb-[40px]">
-          <div className="w-[80px] h-[80px] mx-auto mb-6 rounded-[24px] flex items-center justify-center bg-gradient-to-br from-[var(--sky)] to-[var(--primary)] shadow-[0_12px_30px_rgba(0,136,255,0.4)]">
-            <Fuel className="w-10 h-10 text-white" />
+      <div className="glass card-glass w-full max-w-[540px] m-6 p-12 relative z-10 animate-in zoom-in fade-in duration-700">
+        <div className="text-center mb-12">
+          <div className="w-24 h-24 mx-auto mb-8 rounded-[32px] flex items-center justify-center bg-gradient-to-br from-[var(--sky)] to-[var(--primary)] shadow-[0_15px_40px_rgba(0,136,255,0.4)]">
+            <Fuel className="w-12 h-12 text-white" />
           </div>
-          <h2 className="m-0 font-extrabold text-[28px] text-[var(--text-color)]">Create Account</h2>
-          <p className="mt-2 text-[var(--text-muted)] text-[15px]">Join Pertashop Management System</p>
+          <p className="text-[10px] font-black uppercase tracking-[4px] text-[var(--sky)] mb-2 opacity-80">Registration</p>
+          <h2 className="m-0 font-black text-4xl text-white tracking-tight">Create Account</h2>
+          <p className="mt-3 text-[var(--text-muted)] font-bold text-base opacity-70">Join Pertashop Management System</p>
         </div>
 
         {state?.error && (
-          <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-[15px] py-[12px] rounded-2xl mb-[25px] text-center text-sm backdrop-blur-md flex items-center justify-center gap-2 animate-in fade-in zoom-in duration-300">
-            <AlertCircle className="w-[18px] h-[18px]" />
-            {state.error}
+          <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 px-5 py-4 rounded-2xl mb-8 text-center text-sm backdrop-blur-md flex items-center justify-center gap-3 animate-in slide-in-from-top-4 duration-500">
+            <AlertCircle className="w-5 h-5" />
+            <span className="font-black uppercase tracking-wider">{state.error}</span>
           </div>
         )}
 
-        <form action={formAction}>
-          <div className="mb-5">
-            <label className="text-sm text-[var(--text-color)] opacity-90 mb-2 block font-bold">Full Name</label>
+        <form action={formAction} className="space-y-8">
+          <div className="space-y-3">
+            <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">Full Name</label>
             <div className="relative flex items-center group">
-              <User className="absolute left-[18px] w-5 h-5 text-[var(--text-muted)] transition-colors group-focus-within:text-[var(--sky)]" />
+              <User className="absolute left-6 w-5 h-5 text-[var(--text-muted)] group-focus-within:text-[var(--sky)] transition-colors" />
               <input
                 type="text"
                 name="nama"
-                className="input-glass w-full"
-                style={{ paddingLeft: '52px' }}
+                className="input-glass w-full pl-16 py-5 focus:scale-[1.02]"
                 placeholder="Enter your full name"
                 required
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
-            <div>
-              <label className="text-sm text-[var(--text-color)] opacity-90 mb-2 block font-bold">Email Address</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="space-y-3">
+              <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">Email Address</label>
               <div className="relative flex items-center group">
-                <Mail className="absolute left-[18px] w-5 h-5 text-[var(--text-muted)] transition-colors group-focus-within:text-[var(--sky)]" />
+                <Mail className="absolute left-6 w-5 h-5 text-[var(--text-muted)] group-focus-within:text-[var(--sky)] transition-colors" />
                 <input
                   type="email"
                   name="email"
-                  className="input-glass w-full"
-                  style={{ paddingLeft: '52px' }}
+                  className="input-glass w-full pl-16 py-5 focus:scale-[1.02]"
                   placeholder="name@example.com"
                   required
                 />
               </div>
             </div>
-            <div>
-              <label className="text-sm text-[var(--text-color)] opacity-90 mb-2 block font-bold">Phone Number</label>
+            <div className="space-y-3">
+              <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">Phone Number</label>
               <div className="relative flex items-center group">
-                <Phone className="absolute left-[18px] w-5 h-5 text-[var(--text-muted)] transition-colors group-focus-within:text-[var(--sky)]" />
+                <Phone className="absolute left-6 w-5 h-5 text-[var(--text-muted)] group-focus-within:text-[var(--sky)] transition-colors" />
                 <input
                   type="tel"
                   name="no_hp"
-                  className="input-glass w-full"
-                  style={{ paddingLeft: '52px' }}
+                  className="input-glass w-full pl-16 py-5 focus:scale-[1.02]"
                   placeholder="08xxxxxxxxxx"
                   required
                 />
@@ -87,78 +91,72 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
-            <div>
-              <label className="text-sm text-[var(--text-color)] opacity-90 mb-2 block font-bold">Password</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="space-y-3">
+              <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">Password</label>
               <div className="relative flex items-center group">
-                <Lock className="absolute left-[18px] w-5 h-5 text-[var(--text-muted)] transition-colors group-focus-within:text-[var(--sky)]" />
+                <Lock className="absolute left-6 w-5 h-5 text-[var(--text-muted)] group-focus-within:text-[var(--sky)] transition-colors" />
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
-                  className="input-glass w-full"
-                  style={{ paddingLeft: '52px', paddingRight: '52px' }}
+                  className="input-glass w-full pl-16 pr-16 py-5 focus:scale-[1.02]"
                   placeholder="Create password"
                   required
                 />
                 <button
                   type="button"
-                  className="absolute right-[18px] text-[var(--text-muted)] hover:text-[var(--sky)] transition-colors focus:outline-none"
+                  className="absolute right-6 text-[var(--text-muted)] hover:text-white transition-colors"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? <EyeOff className="w-[18px] h-[18px]" /> : <Eye className="w-[18px] h-[18px]" />}
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
             </div>
-            <div>
-              <label className="text-sm text-[var(--text-color)] opacity-90 mb-2 block font-bold">Confirm</label>
-              <div className="relative flex items-center group">
-                <CheckCircle2 className="absolute left-[18px] w-5 h-5 text-[var(--text-muted)] transition-colors group-focus-within:text-[var(--sky)]" />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  name="confirmPassword"
-                  className="input-glass w-full"
-                  style={{ paddingLeft: '52px' }}
-                  placeholder="Confirm password"
-                  required
-                />
+            <div className="space-y-3">
+              <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">Register As</label>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { val: "Operator", label: "Operator" },
+                  { val: "Admin", label: "Admin" },
+                  { val: "Investor", label: "Investor" },
+                  { val: "Super Admin", label: "Super Admin" },
+                ].map((r) => (
+                  <label key={r.val} className="relative cursor-pointer group">
+                    <input type="radio" name="role" value={r.val} defaultChecked={r.val === "Operator"} className="peer sr-only" />
+                    <div className="py-3 px-4 text-center rounded-[20px] bg-white/5 border border-white/5 text-[var(--text-muted)] peer-checked:bg-[var(--sky)]/20 peer-checked:border-[var(--sky)] peer-checked:text-white transition-all hover:bg-white/10 shadow-lg">
+                      <span className="text-[9px] font-black uppercase tracking-[2px]">{r.label}</span>
+                    </div>
+                  </label>
+                ))}
               </div>
             </div>
           </div>
 
-          <div className="mb-8">
-            <label className="text-sm text-[var(--text-color)] opacity-90 mb-3 block font-bold">Register as</label>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {[
-                { val: "Operator", label: "Operator" },
-                { val: "Admin", label: "Admin" },
-                { val: "Investor", label: "Investor" },
-                { val: "Super Admin", label: "Super Admin" },
-              ].map((r) => (
-                <label key={r.val} className="relative cursor-pointer group">
-                  <input type="radio" name="role" value={r.val} defaultChecked={r.val === "Operator"} className="peer sr-only" />
-                  <div className="p-2.5 text-center rounded-2xl bg-[var(--input-bg)] border border-[var(--input-border)] text-[var(--text-muted)] peer-checked:bg-[var(--sky)]/20 peer-checked:border-[var(--sky)] peer-checked:text-[var(--sky)] transition-all hover:bg-white/5">
-                    <span className="text-[10px] font-extrabold uppercase tracking-widest">{r.label}</span>
-                  </div>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={isPending}
-            className="btn-primary-glass w-full mb-5 text-base py-4" 
+            className="btn-primary-glass w-full py-5 text-lg mt-6"
           >
-            {isPending ? "Creating Account..." : "Register Now"}
+            {isPending ? (
+              <span className="flex items-center gap-3">
+                <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                CREATING ACCOUNT...
+              </span>
+            ) : "CREATE ACCOUNT NOW"}
           </button>
-
-          <div className="text-center text-[14px] text-[var(--text-muted)]">
-            Already have an account?{" "}
-            <Link href="/login" className="text-[var(--sky)] font-bold hover:underline ml-1">
-              Log In here
-            </Link>
-          </div>
         </form>
+
+        <div className="mt-12 text-center">
+          <p className="text-[13px] font-bold text-[var(--text-muted)]">
+            Already have an account?{" "}
+            <Link href="/login" className="text-[var(--sky)] font-black uppercase tracking-wider ml-1 hover:underline">
+              Log In
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -1,9 +1,15 @@
 import { prisma } from "@/lib/prisma";
-import { Settings, Fuel, Save, ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import { Settings, Fuel } from "lucide-react";
+import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import BbmConfigForm from "./BbmConfigForm";
 
 export default async function BbmPage() {
+  const session = await getSession();
+  const allowedRoles = ["Super Admin", "Admin"];
+  if (!session?.user?.role || !allowedRoles.includes(session.user.role)) {
+    redirect("/dashboard");
+  }
   const configs = await prisma.bbm_config.findMany();
 
   return (

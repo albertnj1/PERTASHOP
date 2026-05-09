@@ -3,6 +3,8 @@ import { getActiveShift } from "@/lib/actions/shifts";
 import { AlertTriangle, ArrowLeft, FileText, Wallet } from "lucide-react";
 import Link from "next/link";
 
+import { getSession } from "@/lib/auth";
+
 interface ShiftGuardProps {
   children: React.ReactNode;
   title: string;
@@ -11,9 +13,16 @@ interface ShiftGuardProps {
 }
 
 export default async function ShiftGuard({ children, title, subtitle, icon = 'report' }: ShiftGuardProps) {
-  const activeShift = await getActiveShift();
+  const [activeShift, session] = await Promise.all([
+    getActiveShift(),
+    getSession()
+  ]);
 
-  if (!activeShift) {
+  const userRole = session?.user?.role;
+  const bypassRoles = ["Super Admin", "Admin", "Investor"];
+  const isBypass = userRole && bypassRoles.includes(userRole);
+
+  if (!activeShift && !isBypass) {
     const Icon = icon === 'setoran' ? Wallet : FileText;
     
     return (

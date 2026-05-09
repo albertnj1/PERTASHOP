@@ -24,3 +24,10 @@ export async function updateUser(formData: FormData) {
 
   revalidatePath("/dashboard/users");
 }
+export async function toggleUserStatus(id: number, currentStatus: boolean) {
+  await prisma.users.update({
+    where: { ID: id },
+    data: { is_active: !currentStatus },
+  });
+  revalidatePath("/dashboard/users");
+}

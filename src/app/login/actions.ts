@@ -31,6 +31,11 @@ export async function loginAction(prevState: any, formData: FormData) {
       return { error: "Email atau password salah!" };
     }
 
+    // Check if account is active
+    if (user.is_active === false) {
+      return { error: "Akun Anda dinonaktifkan. Silakan hubungi admin." };
+    }
+
     // Buat session
     await createSession(user);
     

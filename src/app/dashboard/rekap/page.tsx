@@ -5,7 +5,8 @@ import RekapClient from "./RekapClient";
 
 export default async function RekapPage() {
   const session = await getSession();
-  if (session?.user?.role !== "Admin") {
+  const allowedRoles = ["Super Admin", "Admin", "Investor", "Operator"];
+  if (!session?.user?.role || !allowedRoles.includes(session.user.role)) {
     redirect("/dashboard");
   }
 

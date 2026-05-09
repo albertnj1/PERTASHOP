@@ -45,6 +45,7 @@ export async function registerAction(prevState: any, formData: FormData) {
         password: hashedPassword,
         no_hp,
         role,
+        is_active: true,
       },
     });
 

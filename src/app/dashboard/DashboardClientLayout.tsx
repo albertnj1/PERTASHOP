@@ -17,21 +17,22 @@ import {
   History,
 } from "lucide-react";
 import { logoutAction } from "@/lib/actions/auth";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { href: "/dashboard/shift", label: "Kelola Shift", icon: Clock },
+  { href: "/dashboard/shift", label: "Kelola Shift", icon: Clock, roles: ["Super Admin", "Admin", "Operator"] },
 ];
 
 const MAIN_MENU = [
-  { href: "/dashboard/transaksi", label: "Transaksi", icon: FileText },
-  { href: "/dashboard/rekap", label: "Data Tersimpan", icon: History, roles: ["Admin"] },
-  { href: "/dashboard/setoran", label: "Setoran", icon: Wallet },
+  { href: "/dashboard/transaksi", label: "Transaksi", icon: FileText, roles: ["Super Admin", "Admin", "Operator"] },
+  { href: "/dashboard/rekap", label: "Data Tersimpan", icon: History, roles: ["Super Admin", "Admin", "Investor", "Operator"] },
+  { href: "/dashboard/setoran", label: "Setoran", icon: Wallet, roles: ["Super Admin", "Admin", "Operator"] },
 ];
 
 const SETTINGS_MENU = [
-  { href: "/dashboard/stok", label: "Atur Stok", icon: Settings },
-  { href: "/dashboard/users", label: "Pengguna", icon: Users, roles: ["Admin"] },
+  { href: "/dashboard/stok", label: "Atur Stok", icon: Settings, roles: ["Super Admin", "Admin"] },
+  { href: "/dashboard/users", label: "Pengguna", icon: Users, roles: ["Super Admin", "Admin"] },
 ];
 
 function isActive(pathname: string, href: string, exact?: boolean) {
@@ -65,14 +66,14 @@ export default function DashboardClientLayout({
         href={item.href}
         prefetch={true}
         onClick={() => setMobileMenuOpen(false)}
-        className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-200 no-underline ${
+        className={`flex items-center gap-4 p-4 rounded-[20px] transition-all duration-300 no-underline mb-1 ${
           active
-            ? "bg-[rgba(123,189,232,0.15)] text-white font-medium"
-            : "text-white/70 hover:bg-white/5 hover:text-white"
+            ? "bg-gradient-to-r from-[var(--sky)]/20 to-transparent text-[var(--sky)] font-bold border-l-4 border-[var(--sky)] shadow-[10px_0_20px_rgba(0,136,255,0.05)]"
+            : "text-[var(--text-muted)] hover:bg-white/5 hover:text-[var(--text-color)]"
         }`}
       >
-        <Icon className="w-5 h-5 shrink-0" />
-        <span>{item.label}</span>
+        <Icon className={`w-5 h-5 shrink-0 ${active ? 'text-[var(--sky)]' : ''}`} />
+        <span className="text-[15px]">{item.label}</span>
       </Link>
     );
   };
@@ -106,6 +107,7 @@ export default function DashboardClientLayout({
           <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
             <Users className="w-5 h-5 text-white/80" />
           </div>
+          <ThemeToggle />
           <button
             onClick={handleLogout}
             className="ml-2 w-10 h-10 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center hover:bg-red-500/40 hover:text-white transition-colors cursor-pointer border-0"
@@ -158,8 +160,14 @@ export default function DashboardClientLayout({
         )}
 
         {/* MAIN CONTENT */}
-        <main className="content flex-1 min-w-0 max-w-[1200px] mx-auto p-5 md:p-8">
-          {children}
+        <main className="flex-1 overflow-y-auto p-4 md:p-10 relative">
+          <div className="max-w-[1200px] mx-auto">
+            {children}
+          </div>
+          
+          {/* Subtle Background Glows */}
+          <div className="fixed top-[-10%] right-[-10%] w-[40%] h-[40%] bg-[var(--sky)]/5 blur-[120px] pointer-events-none z-[-1]" />
+          <div className="fixed bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-[var(--accent)]/5 blur-[120px] pointer-events-none z-[-1]" />
         </main>
       </div>
     </div>

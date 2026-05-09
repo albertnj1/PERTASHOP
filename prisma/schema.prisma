@@ -129,6 +129,7 @@ model users {
   no_hp      String
   created_at DateTime @default(now())
   foto       String?
+  is_active  Boolean  @default(true)
 }
 
 enum setoran_metode {

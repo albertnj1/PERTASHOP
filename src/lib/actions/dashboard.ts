@@ -71,6 +71,31 @@ export async function getDashboardData() {
   // Check if shift is active
   const isShiftActive = !!activeShift;
 
+  // Fetch profit/loss data for chart (last 7 days)
+  const chartDataRaw = await prisma.laporan_harian.findMany({
+    where: {
+      tanggal: {
+        not: null
+      }
+    },
+    orderBy: { tanggal: "desc" },
+    take: 7,
+    select: {
+      tanggal: true,
+      total_penjualan: true,
+      total_pengeluaran: true,
+      saldo_bersih: true,
+    },
+  });
+
+  // Reverse to show in chronological order
+  const chartData = chartDataRaw.reverse().map((lap) => ({
+    name: lap.tanggal ? new Intl.DateTimeFormat("id-ID", { weekday: "short" }).format(lap.tanggal) : "N/A",
+    penjualan: lap.total_penjualan || 0,
+    pengeluaran: lap.total_pengeluaran || 0,
+    profit: lap.saldo_bersih || 0,
+  }));
+
   return {
     penjualanHariIni: totalPenjualanHariIni,
     literTerjual: totalLiterHariIni,
@@ -78,5 +103,6 @@ export async function getDashboardData() {
     kapasitas,
     stokPercentage,
     isShiftActive,
+    chartData,
   };
 }

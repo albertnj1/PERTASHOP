@@ -10,7 +10,7 @@ export default function ThemeToggle() {
     // Check local storage or system preference
     const savedTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    
+
     if (savedTheme === "light") {
       setIsDarkMode(false);
       document.body.classList.add("light-mode");

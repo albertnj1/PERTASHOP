@@ -156,7 +156,6 @@ export default function SetoranClient({ activeShift }: SetoranClientProps) {
           </div>
         </div>
       )}
-      )}
     </>
   );
 }

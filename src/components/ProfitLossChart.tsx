@@ -76,25 +76,23 @@ export default function ProfitLossChart({ data }: { data: ChartData[] }) {
             formatter={(value: any) => [`Rp ${Number(value).toLocaleString("id-ID")}`, ""]}
             cursor={{ stroke: "rgba(255,255,255,0.1)", strokeWidth: 2 }}
           />
-          <Area
-            type="monotone"
-            dataKey="penjualan"
-            stroke="var(--sky)"
-            strokeWidth={6}
-            fillOpacity={1}
-            fill="url(#colorPenjualan)"
-            animationDuration={2500}
-            filter="url(#glow)"
-          />
-          <Area
+          <Line
             type="monotone"
             dataKey="profit"
-            stroke="var(--accent)"
-            strokeWidth={6}
-            fillOpacity={1}
-            fill="url(#colorProfit)"
-            animationDuration={2500}
-            filter="url(#glow)"
+            stroke="var(--sky)"
+            strokeWidth={5}
+            dot={{ r: 0 }}
+            activeDot={{ r: 10, strokeWidth: 0, fill: "var(--sky)", shadow: "0 0 20px var(--sky)" }}
+            filter="drop-shadow(0 0 15px var(--sky))"
+          />
+          <Line
+            type="monotone"
+            dataKey="revenue"
+            stroke="#818cf8"
+            strokeWidth={5}
+            dot={{ r: 0 }}
+            activeDot={{ r: 10, strokeWidth: 0, fill: "#818cf8", shadow: "0 0 20px #818cf8" }}
+            filter="drop-shadow(0 0 15px #818cf8))"
           />
         </AreaChart>
       </ResponsiveContainer>

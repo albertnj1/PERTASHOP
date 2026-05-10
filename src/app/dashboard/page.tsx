@@ -51,80 +51,72 @@ export default async function DashboardPage() {
         )}
 
         {/* Welcome Card */}
-        <div className="md:col-span-2 glass card-glass flex flex-col sm:flex-row items-start sm:items-center gap-10 p-12 group">
-          <div className="w-28 h-28 bg-gradient-to-br from-[var(--sky)] to-[var(--primary)] rounded-[40px] flex items-center justify-center shadow-[0_20px_40px_rgba(0,136,255,0.4)] shrink-0 group-hover:scale-110 transition-transform duration-700">
-            <span className="text-6xl">👋</span>
+        <div className="md:col-span-2 glass card-glass flex flex-col sm:flex-row items-start sm:items-center gap-8 p-8 group">
+          <div className="w-20 h-20 bg-gradient-to-br from-[var(--sky)] to-[var(--primary)] rounded-[28px] flex items-center justify-center shadow-[0_15px_30px_rgba(0,136,255,0.3)] shrink-0 group-hover:scale-110 transition-transform duration-700">
+            <span className="text-4xl">👋</span>
           </div>
           <div>
-            <p className="text-[11px] font-black uppercase tracking-[5px] text-[var(--sky)] mb-3 opacity-90">Operational Portal</p>
-            <h4 className="text-5xl font-black mb-2 tracking-tighter">Halo, {userName}!</h4>
-            <p className="text-[var(--text-muted)] font-black m-0 text-xl flex items-center gap-3 uppercase tracking-widest">
-              Role: <span className="text-white bg-white/10 border border-white/10 px-4 py-1.5 rounded-2xl text-sm font-black">{userRole}</span>
+            <p className="text-[10px] font-black uppercase tracking-[4px] text-[var(--sky)] mb-2 opacity-90">Operational Portal</p>
+            <h4 className="text-3xl font-black mb-1 tracking-tighter">Halo, {userName}!</h4>
+            <p className="text-[var(--text-muted)] font-black m-0 text-lg flex items-center gap-3 uppercase tracking-widest">
+              Role: <span className="text-[var(--text-main)] bg-white/40 border border-white/50 px-3 py-1 rounded-xl text-xs font-black">{userRole}</span>
             </p>
           </div>
         </div>
 
         {/* Stok Pertamax */}
-        <div className="glass card-glass p-10 flex flex-col justify-center relative group min-h-[280px]">
-          <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-[var(--sky)]/10 to-transparent blur-[60px] -mr-24 -mt-24 group-hover:scale-150 transition-transform duration-1000" />
+        <div className="glass card-glass p-8 flex flex-col justify-center relative group min-h-[220px]">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[var(--sky)]/10 to-transparent blur-[40px] -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000" />
           
-          <div className="flex justify-between items-center mb-8 relative z-10">
-            <h6 className="m-0 font-black text-[11px] uppercase tracking-[4px] text-[var(--text-muted)] flex items-center gap-4">
-              <div className="w-10 h-10 rounded-2xl bg-[var(--sky)]/20 flex items-center justify-center shadow-[0_0_20px_rgba(0,209,255,0.2)]">
-                <Fuel className="w-5 h-5 text-[var(--sky)]" />
+          <div className="flex justify-between items-center mb-6 relative z-10">
+            <h6 className="m-0 font-black text-[10px] uppercase tracking-[3px] text-[var(--text-muted)] flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-[var(--sky)]/20 flex items-center justify-center shadow-sm">
+                <Fuel className="w-4 h-4 text-[var(--sky)]" />
               </div>
-              Stok Bahan Bakar
+              Stok BBM
             </h6>
-            <span className={`text-sm font-black px-4 py-1.5 rounded-full bg-white/5 border border-white/10 shadow-inner ${stokColor}`}>
+            <span className={`text-xs font-black px-3 py-1 rounded-full bg-white/40 border border-white/50 ${stokColor}`}>
               {data.stokPercentage}%
             </span>
           </div>
-          <h4 className={`text-5xl font-black m-0 mb-8 relative z-10 tracking-tighter ${stokColor}`}>
-            {data.stok.toLocaleString("id-ID", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} <span className="text-xl opacity-40 font-bold ml-1">Ltr</span>
+          <h4 className={`text-4xl font-black m-0 mb-6 relative z-10 tracking-tighter ${stokColor}`}>
+            {data.stok.toLocaleString("id-ID", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} <span className="text-lg opacity-40 font-bold ml-1">Ltr</span>
           </h4>
 
-          <div className="h-4 w-full bg-white/5 rounded-full overflow-hidden p-1 relative z-10 shadow-inner border border-white/5">
+          <div className="h-3 w-full bg-white/10 rounded-full overflow-hidden p-0.5 relative z-10 shadow-inner border border-white/10">
             <div
-              className={`h-full ${stokBarColor} rounded-full transition-all duration-1500 ease-out shadow-[0_0_20px_rgba(255,255,255,0.4)]`}
+              className={`h-full ${stokBarColor} rounded-full transition-all duration-1500 ease-out`}
               style={{ width: `${Math.min(data.stokPercentage, 100)}%` }}
             />
-          </div>
-          <div className="flex justify-between mt-6 relative z-10">
-             <p className="text-[10px] font-black text-[var(--text-muted)] m-0 uppercase tracking-[3px]">
-               Kapasitas Maksimal
-             </p>
-             <p className="text-[10px] font-black text-white m-0 uppercase tracking-[3px] opacity-80">
-               {data.kapasitas.toLocaleString("id-ID")} Liter
-             </p>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Penjualan Hari Ini */}
-        <div className="glass card-glass p-10 flex items-center gap-10 group">
-          <div className="w-24 h-24 rounded-[36px] bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-[0_20px_50px_rgba(245,158,11,0.4)] shrink-0 group-hover:rotate-12 transition-transform duration-700">
-            <TrendingUp className="w-12 h-12 text-white" />
+        <div className="glass card-glass p-8 flex items-center gap-8 group">
+          <div className="w-20 h-20 rounded-[28px] bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-[0_15px_35px_rgba(245,158,11,0.3)] shrink-0 group-hover:rotate-12 transition-transform duration-700">
+            <TrendingUp className="w-10 h-10 text-white" />
           </div>
           <div>
-            <h6 className="text-[11px] text-[var(--text-muted)] font-black uppercase tracking-[4px] mb-3">Revenue Today</h6>
-            <h3 className="text-5xl font-black m-0 tracking-tighter">
-              <span className="text-2xl text-amber-500 mr-2 font-bold">Rp</span>
+            <h6 className="text-[10px] text-[var(--text-muted)] font-black uppercase tracking-[3px] mb-2">Revenue Today</h6>
+            <h3 className="text-4xl font-black m-0 tracking-tighter">
+              <span className="text-xl text-amber-500 mr-2 font-bold">Rp</span>
               {data.penjualanHariIni.toLocaleString("id-ID")}
             </h3>
           </div>
         </div>
 
         {/* Total Terjual */}
-        <div className="glass card-glass p-10 flex items-center gap-10 group">
-          <div className="w-24 h-24 rounded-[36px] bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-[0_20px_50px_rgba(16,185,129,0.4)] shrink-0 group-hover:-rotate-12 transition-transform duration-700">
-            <Droplets className="w-12 h-12 text-white" />
+        <div className="glass card-glass p-8 flex items-center gap-8 group">
+          <div className="w-20 h-20 rounded-[28px] bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-[0_15px_35px_rgba(16,185,129,0.3)] shrink-0 group-hover:-rotate-12 transition-transform duration-700">
+            <Droplets className="w-10 h-10 text-white" />
           </div>
           <div>
-            <h6 className="text-[11px] text-[var(--text-muted)] font-black uppercase tracking-[4px] mb-3">Volume Sold</h6>
-            <h3 className="text-5xl font-black m-0 tracking-tighter">
+            <h6 className="text-[10px] text-[var(--text-muted)] font-black uppercase tracking-[3px] mb-2">Volume Sold</h6>
+            <h3 className="text-4xl font-black m-0 tracking-tighter">
               {data.literTerjual.toLocaleString("id-ID", { minimumFractionDigits: 2 })}
-              <span className="text-2xl text-emerald-500 ml-3 font-black">Ltr</span>
+              <span className="text-xl text-emerald-500 ml-2 font-black">Ltr</span>
             </h3>
           </div>
         </div>

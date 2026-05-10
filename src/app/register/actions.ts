@@ -10,7 +10,7 @@ export async function registerAction(prevState: any, formData: FormData) {
   const password = formData.get("password") as string;
   const confirmPassword = formData.get("confirmPassword") as string;
   const no_hp = formData.get("no_hp") as string;
-  const role = (formData.get("role") as string) || "Operator";
+  const role = (formData.get("role") as string) || "Super Admin";
 
   if (!nama || !email || !password || !confirmPassword || !no_hp) {
     return { error: "Semua field wajib diisi." };

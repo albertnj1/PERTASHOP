@@ -6,8 +6,9 @@ import UserList from "./UserList";
 
 export default async function UsersPage() {
   const session = await getSession();
-  const allowedRoles = ["Admin", "Super Admin"];
-  if (!session?.user?.role || !allowedRoles.includes(session.user.role)) {
+  const userRole = session?.user?.role?.toLowerCase();
+  const allowedRoles = ["admin", "super admin"];
+  if (!userRole || !allowedRoles.includes(userRole)) {
     redirect("/dashboard");
   }
 

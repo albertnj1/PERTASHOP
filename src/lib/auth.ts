@@ -25,7 +25,7 @@ export async function createSession(user: any) {
   const expires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 1 hari
   const sessionData = {
     user: {
-      id: user.id,
+      id: user.ID,
       email: user.email,
       nama: user.nama_lengkap || user.nama,
       role: user.role,

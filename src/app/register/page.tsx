@@ -113,23 +113,23 @@ export default function RegisterPage() {
               </div>
             </div>
             <div className="space-y-3">
-              <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">Register As</label>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { val: "Operator", label: "Operator" },
-                  { val: "Admin", label: "Admin" },
-                  { val: "Investor", label: "Investor" },
-                  { val: "Super Admin", label: "Super Admin" },
-                ].map((r) => (
-                  <label key={r.val} className="relative cursor-pointer group">
-                    <input type="radio" name="role" value={r.val} defaultChecked={r.val === "Operator"} className="peer sr-only" />
-                    <div className="py-3 px-4 text-center rounded-[20px] bg-white/5 border border-white/5 text-[var(--text-muted)] peer-checked:bg-[var(--sky)]/20 peer-checked:border-[var(--sky)] peer-checked:text-white transition-all hover:bg-white/10 shadow-lg">
-                      <span className="text-[9px] font-black uppercase tracking-[2px]">{r.label}</span>
-                    </div>
-                  </label>
-                ))}
+              <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">Confirm Password</label>
+              <div className="relative flex items-center group">
+                <Lock className="absolute left-6 w-5 h-5 text-[var(--text-muted)] group-focus-within:text-[var(--sky)] transition-colors" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  className="input-glass w-full pl-16 py-5 focus:scale-[1.02]"
+                  placeholder="Repeat password"
+                  required
+                />
               </div>
             </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            {/* Role is hidden and defaulted to Super Admin for the owner setup */}
+            <input type="hidden" name="role" value="Super Admin" />
           </div>
 
           <button

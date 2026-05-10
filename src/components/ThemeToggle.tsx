@@ -4,32 +4,30 @@ import { Sun, Moon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     // Check local storage or system preference
     const savedTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDark = savedTheme === "dark" || (!savedTheme && prefersDark);
 
-    if (savedTheme === "light") {
-      setIsDarkMode(false);
-      document.body.classList.add("light-mode");
-    } else if (savedTheme === "dark") {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
       setIsDarkMode(true);
-      document.body.classList.remove("light-mode");
-    } else if (!prefersDark) {
+    } else {
+      document.documentElement.classList.remove("dark");
       setIsDarkMode(false);
-      document.body.classList.add("light-mode");
     }
   }, []);
 
   const toggleTheme = () => {
-    if (isDarkMode) {
-      document.body.classList.add("light-mode");
+    if (document.documentElement.classList.contains("dark")) {
+      document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
       setIsDarkMode(false);
     } else {
-      document.body.classList.remove("light-mode");
+      document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
       setIsDarkMode(true);
     }

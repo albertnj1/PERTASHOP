@@ -49,85 +49,87 @@ export default function UserList({
   });
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
       {visibleUsers.map((user) => (
-        <div key={user.ID} className={`glass card-glass p-7 group transition-all duration-300 ${!user.is_active ? 'opacity-50 grayscale-[0.5]' : ''}`}>
-          <div className="flex justify-between items-start mb-6">
-            <div className="flex items-center gap-5">
-              <div className="w-16 h-16 rounded-[24px] bg-white/5 flex items-center justify-center border border-white/10 overflow-hidden relative shadow-inner">
+        <div 
+          key={user.ID} 
+          className={`glass card-glass p-8 group transition-all duration-700 ${!user.is_active ? 'opacity-50 grayscale-[0.3]' : ''}`}
+        >
+          <div className="flex flex-col items-center text-center">
+            {/* Profile Avatar with Liquid Style */}
+            <div className="relative mb-6">
+              <div className="w-24 h-24 rounded-[36px] bg-white/20 flex items-center justify-center border border-white/40 overflow-hidden relative shadow-xl transition-all duration-700 group-hover:scale-110 group-hover:rotate-6">
                 {user.foto ? (
                   <img src={user.foto} alt={user.nama} className="w-full h-full object-cover" />
                 ) : (
-                  <Users className="w-7 h-7 text-[var(--text-muted)]" />
-                )}
-                {!user.is_active && (
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <XCircle className="w-6 h-6 text-red-500" />
-                  </div>
+                  <Users className="w-10 h-10 text-[var(--sky)]" />
                 )}
               </div>
-              <div>
-                <h3 className="font-extrabold text-xl flex items-center gap-2.5">
-                  {user.nama}
-                  {!user.is_active && <span className="text-[9px] font-black bg-red-500/20 text-red-400 px-2.5 py-1 rounded-full uppercase tracking-widest">Off</span>}
-                </h3>
-                <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-[var(--sky)]/10 border border-[var(--sky)]/20 w-fit mt-1.5">
-                  <Shield className="w-3.5 h-3.5 text-[var(--sky)]" />
-                  <span className="text-[10px] font-black text-[var(--sky)] uppercase tracking-widest">{user.role}</span>
+              {/* Status Indicator (Liquid Button Style) */}
+              <button 
+                onClick={() => handleToggleStatus(user.ID, user.is_active)}
+                disabled={isPending}
+                className={`absolute -bottom-2 -right-2 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 border-2 border-white shadow-xl ${
+                  user.is_active 
+                    ? "bg-emerald-400 text-white shadow-emerald-400/30" 
+                    : "bg-rose-400 text-white shadow-rose-400/30"
+                }`}
+              >
+                <Power className="w-4.5 h-4.5" />
+              </button>
+            </div>
+
+            {/* User Info */}
+            <div className="mb-6 w-full">
+              <h3 className="font-black text-2xl mb-2 tracking-tighter text-[var(--text-main)]">
+                {user.nama}
+              </h3>
+              
+              {/* Role Badge (Liquid Pill) */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/40 border border-white/60 shadow-sm">
+                <Shield className="w-3.5 h-3.5 text-[var(--sky)]" />
+                <span className="text-[9px] font-black text-[var(--sky)] uppercase tracking-[3px]">{user.role}</span>
+              </div>
+            </div>
+
+            {/* Contact Details with Soft Icons */}
+            <div className="w-full space-y-4 mb-8">
+              <div className="flex items-center gap-4 p-4 rounded-[22px] bg-white/30 border border-white/40 transition-all hover:bg-white/50 group/item">
+                <div className="w-10 h-10 rounded-[14px] bg-[var(--sky)]/10 flex items-center justify-center text-[var(--sky)] shadow-inner">
+                  <Mail className="w-5 h-5" />
                 </div>
+                <span className="text-xs font-bold text-[var(--text-main)]/70 truncate">{user.email}</span>
+              </div>
+              <div className="flex items-center gap-4 p-4 rounded-[22px] bg-white/30 border border-white/40 transition-all hover:bg-white/50 group/item">
+                <div className="w-10 h-10 rounded-[14px] bg-[var(--accent)]/10 flex items-center justify-center text-[var(--accent)] shadow-inner">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <span className="text-xs font-bold text-[var(--text-main)]/70">{user.no_hp}</span>
               </div>
             </div>
-            
-            <button 
-              onClick={() => handleToggleStatus(user.ID, user.is_active)}
-              disabled={isPending}
-              className={`w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 border ${
-                user.is_active 
-                  ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20" 
-                  : "bg-red-500/10 text-red-400 border-red-500/20 hover:bg-red-500/20"
-              }`}
-              title={user.is_active ? "Nonaktifkan User" : "Aktifkan User"}
-            >
-              <Power className="w-5 h-5" />
-            </button>
-          </div>
 
-          <div className="space-y-4 mb-7">
-            <div className="flex items-center gap-4 text-sm text-[var(--text-muted)] font-medium">
-              <div className="w-9 h-9 rounded-[14px] bg-white/5 flex items-center justify-center border border-white/5 shadow-inner">
-                <Mail className="w-4.5 h-4.5" />
-              </div>
-              <span className="truncate">{user.email}</span>
+            {/* Actions */}
+            <div className="flex gap-4 w-full">
+              <button className="flex-1 h-14 rounded-[22px] bg-white/5 hover:bg-white/15 border border-white/5 flex items-center justify-center gap-3 text-sm font-black uppercase tracking-wider transition-all hover:scale-[1.02] active:scale-95">
+                <Edit className="w-4.5 h-4.5" />
+                <span>Edit Profil</span>
+              </button>
+              <button 
+                onClick={() => handleDelete(user.ID)}
+                disabled={isPending}
+                className="w-16 h-14 rounded-[22px] bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/10 flex items-center justify-center text-rose-400 transition-all hover:scale-[1.02] active:scale-95"
+              >
+                <Trash2 className="w-5 h-5" />
+              </button>
             </div>
-            <div className="flex items-center gap-4 text-sm text-[var(--text-muted)] font-medium">
-              <div className="w-9 h-9 rounded-[14px] bg-white/5 flex items-center justify-center border border-white/5 shadow-inner">
-                <Phone className="w-4.5 h-4.5" />
-              </div>
-              <span>{user.no_hp}</span>
-            </div>
-          </div>
-
-          <div className="flex gap-3 pt-3 border-t border-white/5">
-            <button className="flex-1 h-12 rounded-[18px] bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center gap-2.5 text-[13px] font-bold transition-all hover:border-white/15">
-              <Edit className="w-4.5 h-4.5" />
-              <span>Edit Profil</span>
-            </button>
-            <button 
-              onClick={() => handleDelete(user.ID)}
-              disabled={isPending}
-              className="w-14 h-12 rounded-[18px] bg-red-500/5 hover:bg-red-500/15 border border-red-500/10 flex items-center justify-center text-red-400 transition-all"
-            >
-              <Trash2 className="w-5 h-5" />
-            </button>
           </div>
         </div>
       ))}
 
       {visibleUsers.length === 0 && (
-        <div className="col-span-full glass p-12 text-center">
-          <Users className="w-12 h-12 text-white/20 mx-auto mb-4" />
-          <h3 className="text-xl font-medium opacity-60">Belum ada pengguna</h3>
-          <p className="text-white/40 mt-2">Daftar pengguna kosong atau Anda tidak memiliki akses.</p>
+        <div className="col-span-full glass card-glass p-20 text-center animate-pulse">
+          <Users className="w-16 h-16 text-white/10 mx-auto mb-6" />
+          <h3 className="text-2xl font-black opacity-40 uppercase tracking-[4px]">Belum ada pengguna</h3>
         </div>
       )}
     </div>

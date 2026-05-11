@@ -57,8 +57,8 @@ export default function ForgotPasswordPage() {
               </div>
             </div>
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={isPending}
               className="btn-primary-glass w-full py-5 text-lg"
             >

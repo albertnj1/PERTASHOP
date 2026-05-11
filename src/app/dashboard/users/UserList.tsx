@@ -1,6 +1,6 @@
 "use client";
 
-import { Users, Mail, Phone, Shield, Trash2, Edit, Power, MapPin, GraduationCap, Calendar } from "lucide-react";
+import { Users, Mail, Phone, Shield, Trash2, Edit, Power, MapPin, GraduationCap, Calendar, UserPlus } from "lucide-react";
 import { toggleUserStatus, deleteUser, addUser, updateUser } from "@/lib/actions/users";
 import { useTransition, useState } from "react";
 

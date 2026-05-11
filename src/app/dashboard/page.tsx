@@ -28,8 +28,8 @@ export default async function DashboardPage() {
       : "bg-red-400";
 
   return (
-    <div className="space-y-12">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         {/* Shift Warning Banner */}
         {!data.isShiftActive && (
@@ -51,36 +51,36 @@ export default async function DashboardPage() {
         )}
 
         {/* Welcome Card */}
-        <div className="md:col-span-2 glass card-glass flex flex-col sm:flex-row items-start sm:items-center gap-8 p-8 group">
-          <div className="w-20 h-20 bg-gradient-to-br from-[var(--sky)] to-[var(--primary)] rounded-[28px] flex items-center justify-center shadow-[0_15px_30px_rgba(0,136,255,0.3)] shrink-0 group-hover:scale-110 transition-transform duration-700">
-            <span className="text-4xl">👋</span>
+        <div className="md:col-span-2 glass card-glass flex flex-col sm:flex-row items-start sm:items-center gap-6 group">
+          <div className="w-14 h-14 bg-gradient-to-br from-[var(--sky)] to-[var(--primary)] rounded-[20px] flex items-center justify-center shadow-[0_15px_30px_rgba(0,136,255,0.3)] shrink-0 group-hover:scale-110 transition-transform duration-700">
+            <span className="text-2xl">👋</span>
           </div>
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[4px] text-[var(--sky)] mb-2 opacity-90">Operational Portal</p>
-            <h4 className="text-3xl font-black mb-1 tracking-tighter">Halo, {userName}!</h4>
-            <p className="text-[var(--text-muted)] font-black m-0 text-lg flex items-center gap-3 uppercase tracking-widest">
-              Role: <span className="text-[var(--text-main)] bg-white/40 border border-white/50 px-3 py-1 rounded-xl text-xs font-black">{userRole}</span>
+            <p className="text-[10px] font-black uppercase tracking-[4px] text-[var(--sky)] mb-1 opacity-90">Operational Portal</p>
+            <h4 className="text-2xl font-black mb-1 tracking-tighter">Halo, {userName}!</h4>
+            <p className="text-[var(--text-muted)] font-black m-0 text-sm flex items-center gap-3 uppercase tracking-widest">
+              Role: <span className="text-[var(--text-main)] bg-white/40 border border-white/50 px-2 py-0.5 rounded-lg text-[10px] font-black">{userRole}</span>
             </p>
           </div>
         </div>
 
         {/* Stok Pertamax */}
-        <div className="glass card-glass p-8 flex flex-col justify-center relative group min-h-[220px]">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[var(--sky)]/10 to-transparent blur-[40px] -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000" />
+        <div className="glass card-glass flex flex-col justify-center relative group min-h-[160px]">
+          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[var(--sky)]/10 to-transparent blur-[30px] -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-1000" />
           
-          <div className="flex justify-between items-center mb-6 relative z-10">
-            <h6 className="m-0 font-black text-[10px] uppercase tracking-[3px] text-[var(--text-muted)] flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-[var(--sky)]/20 flex items-center justify-center shadow-sm">
-                <Fuel className="w-4 h-4 text-[var(--sky)]" />
+          <div className="flex justify-between items-center mb-4 relative z-10">
+            <h6 className="m-0 font-black text-[10px] uppercase tracking-[3px] text-[var(--text-muted)] flex items-center gap-2">
+              <div className="w-6 h-6 rounded-lg bg-[var(--sky)]/20 flex items-center justify-center shadow-sm">
+                <Fuel className="w-3 h-3 text-[var(--sky)]" />
               </div>
               Stok BBM
             </h6>
-            <span className={`text-xs font-black px-3 py-1 rounded-full bg-white/40 border border-white/50 ${stokColor}`}>
+            <span className={`text-[10px] font-black px-2 py-0.5 rounded-full bg-white/40 border border-white/50 ${stokColor}`}>
               {data.stokPercentage}%
             </span>
           </div>
-          <h4 className={`text-4xl font-black m-0 mb-6 relative z-10 tracking-tighter ${stokColor}`}>
-            {data.stok.toLocaleString("id-ID", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} <span className="text-lg opacity-40 font-bold ml-1">Ltr</span>
+          <h4 className={`text-3xl font-black m-0 mb-4 relative z-10 tracking-tighter ${stokColor}`}>
+            {data.stok.toLocaleString("id-ID", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} <span className="text-sm opacity-40 font-bold ml-1">Ltr</span>
           </h4>
 
           <div className="h-3 w-full bg-white/10 rounded-full overflow-hidden p-0.5 relative z-10 shadow-inner border border-white/10">
@@ -92,53 +92,53 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Penjualan Hari Ini */}
-        <div className="glass card-glass p-8 flex items-center gap-8 group">
-          <div className="w-20 h-20 rounded-[28px] bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-[0_15px_35px_rgba(245,158,11,0.3)] shrink-0 group-hover:rotate-12 transition-transform duration-700">
-            <TrendingUp className="w-10 h-10 text-white" />
+        <div className="glass card-glass flex items-center gap-5 group">
+          <div className="w-14 h-14 rounded-[20px] bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-[0_15px_35px_rgba(245,158,11,0.3)] shrink-0 group-hover:rotate-12 transition-transform duration-700">
+            <TrendingUp className="w-7 h-7 text-white" />
           </div>
           <div>
-            <h6 className="text-[10px] text-[var(--text-muted)] font-black uppercase tracking-[3px] mb-2">Revenue Today</h6>
-            <h3 className="text-4xl font-black m-0 tracking-tighter">
-              <span className="text-xl text-amber-500 mr-2 font-bold">Rp</span>
+            <h6 className="text-[10px] text-[var(--text-muted)] font-black uppercase tracking-[3px] mb-1">Revenue Today</h6>
+            <h3 className="text-2xl font-black m-0 tracking-tighter">
+              <span className="text-lg text-amber-500 mr-1 font-bold">Rp</span>
               {data.penjualanHariIni.toLocaleString("id-ID")}
             </h3>
           </div>
         </div>
 
         {/* Total Terjual */}
-        <div className="glass card-glass p-8 flex items-center gap-8 group">
-          <div className="w-20 h-20 rounded-[28px] bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-[0_15px_35px_rgba(16,185,129,0.3)] shrink-0 group-hover:-rotate-12 transition-transform duration-700">
-            <Droplets className="w-10 h-10 text-white" />
+        <div className="glass card-glass flex items-center gap-5 group">
+          <div className="w-14 h-14 rounded-[20px] bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-[0_15px_35px_rgba(16,185,129,0.3)] shrink-0 group-hover:-rotate-12 transition-transform duration-700">
+            <Droplets className="w-7 h-7 text-white" />
           </div>
           <div>
-            <h6 className="text-[10px] text-[var(--text-muted)] font-black uppercase tracking-[3px] mb-2">Volume Sold</h6>
-            <h3 className="text-4xl font-black m-0 tracking-tighter">
+            <h6 className="text-[10px] text-[var(--text-muted)] font-black uppercase tracking-[3px] mb-1">Volume Sold</h6>
+            <h3 className="text-2xl font-black m-0 tracking-tighter">
               {data.literTerjual.toLocaleString("id-ID", { minimumFractionDigits: 2 })}
-              <span className="text-xl text-emerald-500 ml-2 font-black">Ltr</span>
+              <span className="text-sm text-emerald-500 ml-1 font-black">Ltr</span>
             </h3>
           </div>
         </div>
       </div>
 
       {/* Chart Section */}
-      <div className="glass card-glass p-12 rounded-[48px] border-white/5 relative overflow-hidden group">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--sky)]/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="glass card-glass relative overflow-hidden group">
+        <div className="absolute top-0 left-1/4 w-72 h-72 bg-[var(--sky)]/5 blur-[100px] rounded-full pointer-events-none" />
         
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-16 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 relative z-10">
           <div>
-            <h5 className="text-3xl font-black m-0 flex items-center gap-5 tracking-tight">
-              <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.2)]">
-                <TrendingUp className="w-6 h-6 text-indigo-400" />
+            <h5 className="text-2xl font-black m-0 flex items-center gap-3 tracking-tight">
+              <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.2)]">
+                <TrendingUp className="w-5 h-5 text-indigo-400" />
               </div>
               Analisis Penjualan & Profit
             </h5>
-            <p className="text-[11px] text-[var(--text-muted)] font-black uppercase tracking-[4px] mt-3">Statistik komprehensif 7 periode terakhir</p>
+            <p className="text-[10px] text-[var(--text-muted)] font-black uppercase tracking-[4px] mt-2">Statistik komprehensif 7 periode terakhir</p>
           </div>
           
-          <div className="flex items-center gap-6 bg-white/[0.03] p-3 rounded-2xl border border-white/5 backdrop-blur-md">
-             <div className="px-6 py-2.5 rounded-xl bg-white/10 text-xs font-black uppercase tracking-[3px] text-white cursor-default shadow-lg">
+          <div className="flex items-center gap-4 bg-white/[0.03] p-2 rounded-xl border border-white/5 backdrop-blur-md">
+             <div className="px-4 py-2 rounded-lg bg-white/10 text-[10px] font-black uppercase tracking-[3px] text-[var(--text-main)] cursor-default shadow-sm">
                Live Data
              </div>
           </div>

@@ -97,24 +97,24 @@ export default function LaporanClient({ pertashops, activeShift, bbmPrice, userR
       {/* Modal / Centered Card UI */}
       {isOpen && (
         <div className="fixed inset-0 z-[150] flex justify-center bg-black/60 backdrop-blur-xl overflow-y-auto pt-10 pb-20 px-4 animate-in fade-in duration-300">
-          <div className="relative w-full max-w-2xl h-fit glass card-glass rounded-[40px] border-white/5 shadow-[0_0_100px_rgba(0,0,0,0.5)] overflow-hidden animate-in zoom-in duration-500">
+          <div className="relative w-full max-w-2xl h-fit glass card-glass rounded-3xl border-white/5 shadow-[0_0_100px_rgba(0,0,0,0.5)] overflow-hidden animate-in zoom-in duration-500">
             {/* Header Glow */}
-            <div className="absolute top-0 inset-x-0 h-64 bg-gradient-to-b from-[var(--sky)]/10 to-transparent pointer-events-none" />
+            <div className="absolute top-0 inset-x-0 h-48 bg-gradient-to-b from-[var(--sky)]/10 to-transparent pointer-events-none" />
 
-            <form onSubmit={handleSubmit} className="relative p-10 md:p-14 space-y-10 flex flex-col items-center">
+            <form onSubmit={handleSubmit} className="relative p-6 md:p-8 space-y-6 flex flex-col items-center">
               <input type="hidden" name="shift_id" value={activeShift?.id || ""} />
               <input type="hidden" name="harga_bbm" value={bbmPrice} />
               <input type="hidden" name="hari" value={dayName} />
 
               {/* Header Icon */}
-              <div className="w-24 h-24 bg-gradient-to-br from-[var(--sky)] to-[var(--primary)] rounded-[32px] flex items-center justify-center shadow-[0_15px_35px_rgba(0,136,255,0.3)] mb-2 group">
-                <Fuel className="w-12 h-12 text-white group-hover:scale-110 transition-transform duration-500" />
+              <div className="w-16 h-16 bg-gradient-to-br from-[var(--sky)] to-[var(--primary)] rounded-2xl flex items-center justify-center shadow-[0_15px_35px_rgba(0,136,255,0.3)] mb-1 group">
+                <Fuel className="w-8 h-8 text-white group-hover:scale-110 transition-transform duration-500" />
               </div>
 
               {/* Title Section */}
-              <div className="text-center space-y-3 mb-4">
-                <h2 className="text-4xl font-black tracking-tight text-white m-0">Laporan Harian</h2>
-                <p className="text-sm text-[var(--text-muted)] font-bold uppercase tracking-widest">Input data totalisator & pengeluaran</p>
+              <div className="text-center space-y-2 mb-2">
+                <h2 className="text-2xl font-black tracking-tight text-[var(--text-main)] m-0">Laporan Harian</h2>
+                <p className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-widest">Input data totalisator & pengeluaran</p>
               </div>
 
               {/* Shift ID Badge */}
@@ -124,7 +124,7 @@ export default function LaporanClient({ pertashops, activeShift, bbmPrice, userR
               </div>
 
               {/* Form Fields Container */}
-              <div className="w-full space-y-10 mt-4">
+              <div className="w-full space-y-6 mt-2">
                 
                 {/* Pilih Pertashop */}
                 <div className="space-y-4">
@@ -181,15 +181,15 @@ export default function LaporanClient({ pertashops, activeShift, bbmPrice, userR
                 </div>
 
                 {/* Section: Data Totalisator */}
-                <div className="pt-6 space-y-8">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-2xl bg-emerald-500/20 flex items-center justify-center">
-                      <Fuel className="w-5 h-5 text-emerald-400" />
+                <div className="pt-4 space-y-6 border-t border-white/10">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+                      <Fuel className="w-4 h-4 text-emerald-400" />
                     </div>
-                    <h4 className="text-xl font-black m-0">Data Totalisator</h4>
+                    <h4 className="text-lg font-black m-0">Data Totalisator</h4>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-4">
                       <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">
                         Angka Awal 
@@ -234,15 +234,15 @@ export default function LaporanClient({ pertashops, activeShift, bbmPrice, userR
                 </div>
 
                 {/* Section: Data Pengeluaran */}
-                <div className="pt-6 space-y-8">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-2xl bg-rose-500/20 flex items-center justify-center">
-                      <Layout className="w-5 h-5 text-rose-400" />
+                <div className="pt-4 space-y-6 border-t border-white/10">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-xl bg-rose-500/20 flex items-center justify-center">
+                      <Layout className="w-4 h-4 text-rose-400" />
                     </div>
-                    <h4 className="text-xl font-black m-0">Data Pengeluaran</h4>
+                    <h4 className="text-lg font-black m-0">Data Pengeluaran</h4>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-4">
                       <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">Cashback / Diskon</label>
                       <div className="relative">
@@ -275,11 +275,11 @@ export default function LaporanClient({ pertashops, activeShift, bbmPrice, userR
               </div>
 
               {/* Submit Section */}
-              <div className="w-full pt-10 space-y-8 flex flex-col items-center">
+              <div className="w-full pt-6 space-y-4 flex flex-col items-center">
                 <button 
                   type="submit"
                   disabled={isPending}
-                  className="btn-primary-glass w-full py-5 text-xl"
+                  className="btn-primary-glass w-full py-4 text-base"
                 >
                   {isPending ? (
                     <>

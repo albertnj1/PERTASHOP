@@ -17,7 +17,6 @@ import {
   History,
 } from "lucide-react";
 import { logoutAction } from "@/lib/actions/auth";
-import ThemeToggle from "@/components/ThemeToggle";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, exact: true },
@@ -130,8 +129,8 @@ export default function DashboardClientLayout({
             </Link>
           )}
           
-          <ThemeToggle />
           
+
           <div className="h-8 w-px bg-white/5 mx-1" />
           
           <button
@@ -186,7 +185,7 @@ export default function DashboardClientLayout({
         )}
 
         {/* MAIN CONTENT */}
-        <main className="flex-1 overflow-y-auto p-6 md:p-10 lg:p-12 relative selection:bg-[var(--sky)] selection:text-white">
+        <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 relative selection:bg-[var(--sky)] selection:text-white">
           <div className="max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-10 duration-1000">
             {children}
           </div>

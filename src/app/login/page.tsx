@@ -5,7 +5,6 @@ import { Mail, Lock, Eye, EyeOff, Fuel, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { loginAction } from "./actions";
-import ThemeToggle from "@/components/ThemeToggle";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -26,9 +25,6 @@ export default function LoginPage() {
         <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-[var(--primary)]/10 blur-[150px] rounded-full" />
       </div>
 
-      <div className="absolute top-8 right-8 z-50">
-        <ThemeToggle />
-      </div>
 
       <div className="glass card-glass w-full max-w-[440px] m-6 p-12 relative z-10 animate-in zoom-in fade-in duration-700">
         <div className="text-center mb-12">

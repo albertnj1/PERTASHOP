@@ -87,16 +87,16 @@ export default function UserList({
       </div>
 
       {/* Grid List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {visibleUsers.map((user) => (
           <div 
             key={user.ID} 
-            className={`glass card-glass p-8 group transition-all duration-700 ${!user.is_active ? 'opacity-70 grayscale-[0.5] border-rose-500/20' : ''}`}
+            className={`glass card-glass group transition-all duration-700 ${!user.is_active ? 'opacity-70 grayscale-[0.5] border-rose-500/20' : ''}`}
           >
             <div className="flex flex-col items-center text-center">
               {/* Profile Avatar with Liquid Style */}
-              <div className="relative mb-6">
-                <div className="w-24 h-24 rounded-[36px] bg-white/20 flex items-center justify-center border border-white/40 overflow-hidden relative shadow-xl transition-all duration-700 group-hover:scale-110 group-hover:rotate-6">
+              <div className="relative mb-4">
+                <div className="w-20 h-20 rounded-[28px] bg-white/20 flex items-center justify-center border border-white/40 overflow-hidden relative shadow-xl transition-all duration-700 group-hover:scale-110 group-hover:rotate-6">
                   {user.foto ? (
                     <img src={user.foto} alt={user.nama} className="w-full h-full object-cover" />
                   ) : (
@@ -139,15 +139,15 @@ export default function UserList({
               </div>
 
               {/* Contact Details with Soft Icons */}
-              <div className="w-full space-y-3 mb-8">
-                <div className="flex items-center gap-4 p-3.5 rounded-[20px] bg-white/30 border border-white/40 transition-all hover:bg-white/50 group/item">
-                  <div className="w-9 h-9 rounded-xl bg-[var(--sky)]/10 flex items-center justify-center text-[var(--sky)] shadow-inner shrink-0">
+              <div className="w-full space-y-2 mb-6">
+                <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/30 border border-white/40 transition-all hover:bg-white/50 group/item">
+                  <div className="w-8 h-8 rounded-xl bg-[var(--sky)]/10 flex items-center justify-center text-[var(--sky)] shadow-inner shrink-0">
                     <Mail className="w-4 h-4" />
                   </div>
                   <span className="text-[11px] font-bold text-[var(--text-main)]/70 truncate">{user.email}</span>
                 </div>
-                <div className="flex items-center gap-4 p-3.5 rounded-[20px] bg-white/30 border border-white/40 transition-all hover:bg-white/50 group/item">
-                  <div className="w-9 h-9 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center text-[var(--accent)] shadow-inner shrink-0">
+                <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/30 border border-white/40 transition-all hover:bg-white/50 group/item">
+                  <div className="w-8 h-8 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center text-[var(--accent)] shadow-inner shrink-0">
                     <Phone className="w-4 h-4" />
                   </div>
                   <span className="text-[11px] font-bold text-[var(--text-main)]/70">{user.no_hp}</span>
@@ -155,16 +155,16 @@ export default function UserList({
                 
                 {/* Extended Profile Info (If Available) */}
                 {user.alamat && (
-                  <div className="flex items-center gap-4 p-3.5 rounded-[20px] bg-white/30 border border-white/40 transition-all hover:bg-white/50 group/item">
-                    <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 shadow-inner shrink-0">
+                  <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/30 border border-white/40 transition-all hover:bg-white/50 group/item">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 shadow-inner shrink-0">
                       <MapPin className="w-4 h-4" />
                     </div>
                     <span className="text-[11px] font-bold text-[var(--text-main)]/70 truncate text-left">{user.alamat}</span>
                   </div>
                 )}
                 {user.pendidikan_terakhir && (
-                  <div className="flex items-center gap-4 p-3.5 rounded-[20px] bg-white/30 border border-white/40 transition-all hover:bg-white/50 group/item">
-                    <div className="w-9 h-9 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 shadow-inner shrink-0">
+                  <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/30 border border-white/40 transition-all hover:bg-white/50 group/item">
+                    <div className="w-8 h-8 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 shadow-inner shrink-0">
                       <GraduationCap className="w-4 h-4" />
                     </div>
                     <span className="text-[11px] font-bold text-[var(--text-main)]/70 truncate text-left">{user.pendidikan_terakhir}</span>
@@ -174,15 +174,15 @@ export default function UserList({
 
               {/* Actions */}
               {canEdit && (
-                <div className="flex gap-4 w-full">
-                  <button className="flex-1 h-14 rounded-[22px] bg-white/5 hover:bg-white/15 border border-white/5 flex items-center justify-center gap-3 text-sm font-black uppercase tracking-wider transition-all hover:scale-[1.02] active:scale-95">
-                    <Edit className="w-4.5 h-4.5" />
+                <div className="flex gap-3 w-full">
+                  <button className="flex-1 h-12 rounded-xl bg-white/5 hover:bg-white/15 border border-white/5 flex items-center justify-center gap-2 text-xs font-black uppercase tracking-wider transition-all hover:scale-[1.02] active:scale-95">
+                    <Edit className="w-4 h-4" />
                     <span>Edit Profil</span>
                   </button>
                   <button 
                     onClick={() => handleDelete(user.ID)}
                     disabled={isPending}
-                    className="w-16 h-14 rounded-[22px] bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/10 flex items-center justify-center text-rose-400 transition-all hover:scale-[1.02] active:scale-95"
+                    className="w-14 h-12 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/10 flex items-center justify-center text-rose-400 transition-all hover:scale-[1.02] active:scale-95"
                   >
                     <Trash2 className="w-5 h-5" />
                   </button>
@@ -193,9 +193,9 @@ export default function UserList({
         ))}
 
         {visibleUsers.length === 0 && (
-          <div className="col-span-full glass card-glass p-20 text-center animate-pulse">
-            <Users className="w-16 h-16 text-[var(--text-muted)]/30 mx-auto mb-6" />
-            <h3 className="text-2xl font-black opacity-40 uppercase tracking-[4px] text-[var(--text-main)]">
+          <div className="col-span-full glass card-glass p-12 text-center animate-pulse">
+            <Users className="w-12 h-12 text-[var(--text-muted)]/30 mx-auto mb-4" />
+            <h3 className="text-xl font-black opacity-40 uppercase tracking-[4px] text-[var(--text-main)]">
               Tidak ada data {activeTab === 'draft' ? 'draft' : 'pengguna'}
             </h3>
           </div>

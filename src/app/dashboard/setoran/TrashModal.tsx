@@ -59,8 +59,8 @@ export default function TrashModal({ deletedItems }: { deletedItems: any[] }) {
               </button>
             </div>
 
-            <div className="max-h-[60vh] overflow-y-auto p-2 custom-scrollbar">
-              <table className="w-full text-left border-collapse">
+            <div className="max-h-[60vh] overflow-auto p-2 custom-scrollbar w-full">
+              <table className="w-full text-left border-collapse whitespace-nowrap">
                 <thead>
                   <tr className="border-b border-white/5">
                     <th className="px-6 py-4 text-[10px] uppercase font-black tracking-widest text-white/40">Tanggal</th>

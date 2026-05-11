@@ -1,7 +1,7 @@
 "use client";
 
 import { Users, Mail, Phone, Shield, Trash2, Edit, Power, MapPin, GraduationCap, Calendar } from "lucide-react";
-import { toggleUserStatus, deleteUser } from "@/lib/actions/users";
+import { toggleUserStatus, deleteUser, addUser, updateUser } from "@/lib/actions/users";
 import { useTransition, useState } from "react";
 
 interface User {
@@ -27,6 +27,36 @@ export default function UserList({
 }) {
   const [isPending, startTransition] = useTransition();
   const [activeTab, setActiveTab] = useState<'aktif' | 'draft'>('aktif');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+
+  const handleOpenAdd = () => {
+    setEditingUser(null);
+    setIsModalOpen(true);
+  };
+
+  const handleOpenEdit = (user: User) => {
+    setEditingUser(user);
+    setIsModalOpen(true);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    startTransition(async () => {
+      try {
+        if (editingUser) {
+          formData.append("id", editingUser.ID.toString());
+          await updateUser(formData);
+        } else {
+          await addUser(formData);
+        }
+        setIsModalOpen(false);
+      } catch (error) {
+        alert("Gagal menyimpan data pengguna.");
+      }
+    });
+  };
 
   const handleToggleStatus = (id: number, currentStatus: boolean) => {
     if (confirm("Apakah Anda yakin ingin mengubah status aktif pengguna ini?")) {
@@ -85,6 +115,15 @@ export default function UserList({
           Draft Nonaktif
         </button>
       </div>
+
+      {canEdit && (
+        <div className="flex justify-start sm:justify-end -mt-4 mb-4">
+          <button onClick={handleOpenAdd} className="btn-primary-glass flex items-center gap-2 text-sm px-6 py-3">
+            <UserPlus className="w-4 h-4" />
+            <span>Tambah User</span>
+          </button>
+        </div>
+      )}
 
       {/* Grid List */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -175,7 +214,10 @@ export default function UserList({
               {/* Actions */}
               {canEdit && (
                 <div className="flex gap-3 w-full">
-                  <button className="flex-1 h-12 rounded-xl bg-white/5 hover:bg-white/15 border border-white/5 flex items-center justify-center gap-2 text-xs font-black uppercase tracking-wider transition-all hover:scale-[1.02] active:scale-95">
+                  <button 
+                    onClick={() => handleOpenEdit(user)}
+                    className="flex-1 h-12 rounded-xl bg-white/5 hover:bg-white/15 border border-white/5 flex items-center justify-center gap-2 text-xs font-black uppercase tracking-wider transition-all hover:scale-[1.02] active:scale-95"
+                  >
                     <Edit className="w-4 h-4" />
                     <span>Edit Profil</span>
                   </button>
@@ -201,6 +243,86 @@ export default function UserList({
           </div>
         )}
       </div>
+
+      {/* MODAL FORM TAMBAH / EDIT */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[200] flex justify-center items-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="glass card-glass w-full max-w-2xl animate-in zoom-in-95 duration-300 rounded-3xl relative mt-20 mb-20 p-6 md:p-8">
+            <button 
+              type="button"
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-6 right-6 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-rose-500 hover:text-white transition-colors"
+            >
+              ✕
+            </button>
+            <h3 className="text-2xl font-black mb-6 text-[var(--text-main)]">
+              {editingUser ? "Edit Profil Karyawan" : "Tambah Karyawan Baru"}
+            </h3>
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)]">Nama Lengkap</label>
+                  <input type="text" name="nama" defaultValue={editingUser?.nama || ""} required className="input-glass w-full" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)]">Nama Panggilan</label>
+                  <input type="text" name="nama_panggilan" defaultValue={editingUser?.nama_panggilan || ""} className="input-glass w-full" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)]">Email</label>
+                  <input type="email" name="email" defaultValue={editingUser?.email || ""} required className="input-glass w-full" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)]">Nomor HP</label>
+                  <input type="text" name="no_hp" defaultValue={editingUser?.no_hp || ""} required className="input-glass w-full" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)]">Role</label>
+                  <select name="role" defaultValue={editingUser?.role || ""} required className="input-glass w-full appearance-none">
+                    <option value="" className="bg-[#0a101f]">-- Pilih Role --</option>
+                    <option value="Super Admin" className="bg-[#0a101f]">Super Admin</option>
+                    <option value="Admin" className="bg-[#0a101f]">Admin</option>
+                    <option value="Investor" className="bg-[#0a101f]">Investor</option>
+                    <option value="Operator" className="bg-[#0a101f]">Operator</option>
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)]">Pendidikan Terakhir</label>
+                  <select name="pendidikan_terakhir" defaultValue={editingUser?.pendidikan_terakhir || ""} className="input-glass w-full appearance-none">
+                    <option value="" className="bg-[#0a101f]">-- Pilih Pendidikan --</option>
+                    <option value="SD/Sederajat" className="bg-[#0a101f]">SD/Sederajat</option>
+                    <option value="SMP/Sederajat" className="bg-[#0a101f]">SMP/Sederajat</option>
+                    <option value="SMA/SMK/Sederajat" className="bg-[#0a101f]">SMA/SMK/Sederajat</option>
+                    <option value="D3/S1/Sederajat" className="bg-[#0a101f]">D3/S1/Sederajat</option>
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)]">Tanggal Lahir</label>
+                  <input type="date" name="tanggal_lahir" defaultValue={editingUser?.tanggal_lahir ? new Date(editingUser.tanggal_lahir).toISOString().split('T')[0] : ""} className="input-glass w-full" />
+                </div>
+                <div className="space-y-2 md:col-span-2">
+                  <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)]">Alamat Lengkap</label>
+                  <textarea name="alamat" defaultValue={editingUser?.alamat || ""} className="input-glass w-full min-h-[100px]" />
+                </div>
+              </div>
+              
+              {!editingUser && (
+                <div className="bg-[var(--sky)]/10 border border-[var(--sky)]/20 p-4 rounded-xl text-xs font-bold text-[var(--sky)] mt-4">
+                  ℹ️ Password default untuk pengguna baru adalah: <strong className="text-white">Pertashop123!</strong>
+                </div>
+              )}
+
+              <div className="pt-6 border-t border-white/10 flex gap-4">
+                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-sm font-black transition-colors">Batal</button>
+                <button type="submit" disabled={isPending} className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[var(--sky)] to-[var(--primary)] text-white text-sm font-black hover:opacity-90 transition-opacity">
+                  {isPending ? "Menyimpan..." : "Simpan Data"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

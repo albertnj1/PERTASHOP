@@ -34,15 +34,11 @@ export default async function UsersPage() {
 
   return (
     <div className="animate-in fade-in duration-500">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+      <div className="flex flex-col items-start justify-between gap-4 mb-8">
         <div>
           <h2 className="text-2xl font-black text-[var(--text-main)] mb-1 tracking-tight">Pengguna</h2>
           <p className="text-[var(--text-muted)] font-medium">Kelola akses dan profil pengguna sistem</p>
         </div>
-        <button className="btn-primary-glass flex items-center gap-2">
-          <UserPlus className="w-5 h-5" />
-          <span>Tambah User</span>
-        </button>
       </div>
 
       <UserList users={allUsers} currentUserRole={session?.user?.role || "Operator"} />

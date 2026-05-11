@@ -97,7 +97,7 @@ export default function DashboardClientLayout({
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-11 h-11 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 text-white/80 hover:bg-white/10 transition-all cursor-pointer"
+            className="md:hidden w-11 h-11 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 text-[var(--text-main)] hover:bg-white/10 transition-all cursor-pointer"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -126,7 +126,7 @@ export default function DashboardClientLayout({
               className="w-11 h-11 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group hover:border-[var(--sky)]/30 transition-all cursor-pointer no-underline"
               title="Manajemen Pengguna"
             >
-              <Users className="w-5 h-5 text-white/60 group-hover:text-[var(--sky)] transition-colors" />
+              <Users className="w-5 h-5 text-[var(--text-muted)] group-hover:text-[var(--sky)] transition-colors" />
             </Link>
           )}
           
@@ -168,7 +168,7 @@ export default function DashboardClientLayout({
               onClick={() => setMobileMenuOpen(false)}
             />
             <aside
-              className="fixed left-0 top-[var(--nav-h)] bottom-0 w-[300px] z-40 md:hidden overflow-y-auto p-6 glass border-y-0 border-l-0 rounded-none bg-[#030712]/90 backdrop-blur-3xl animate-in slide-in-from-left duration-500"
+              className="fixed left-0 top-[var(--nav-h)] bottom-0 w-[300px] z-40 md:hidden overflow-y-auto p-6 glass border-y-0 border-l-0 rounded-none bg-[var(--glass-bg)] backdrop-blur-3xl animate-in slide-in-from-left duration-500"
             >
               <div className="mt-4">
                 {NAV_ITEMS.map(renderNavItem)}

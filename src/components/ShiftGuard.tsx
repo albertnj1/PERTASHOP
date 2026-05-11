@@ -27,9 +27,9 @@ export default async function ShiftGuard({ children, title, subtitle, icon = 're
     
     return (
       <div className="flex flex-col items-center justify-center min-h-[70vh] animate-in fade-in zoom-in duration-500">
-        <div className="glass p-10 md:p-12 max-w-xl w-full text-center relative overflow-hidden">
+        <div className="glass card-glass p-10 md:p-12 max-w-xl w-full text-center relative overflow-hidden">
           {/* Decorative background elements */}
-          <div className="absolute -top-10 -right-10 opacity-5 rotate-12 pointer-events-none">
+          <div className="absolute -top-10 -right-10 opacity-5 rotate-12 pointer-events-none text-[var(--text-main)]">
              <Icon className="w-64 h-64" />
           </div>
           <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-[var(--sky)]/10 rounded-full blur-3xl pointer-events-none" />
@@ -38,22 +38,22 @@ export default async function ShiftGuard({ children, title, subtitle, icon = 're
             <Icon className="w-10 h-10 text-white" />
           </div>
 
-          <h2 className="text-3xl font-bold mb-2 relative z-10">{title}</h2>
-          <p className="text-white/60 mb-10 relative z-10">{subtitle}</p>
+          <h2 className="text-3xl font-black mb-2 relative z-10 tracking-tight text-[var(--text-main)]">{title}</h2>
+          <p className="text-[var(--text-muted)] font-bold mb-10 relative z-10 uppercase text-xs tracking-[3px]">{subtitle}</p>
 
-          <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-8 mb-10 relative z-10 backdrop-blur-md">
-            <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-500/30">
-              <AlertTriangle className="w-6 h-6 text-red-400" />
+          <div className="bg-rose-500/10 border border-rose-500/20 rounded-[32px] p-8 mb-10 relative z-10 backdrop-blur-md">
+            <div className="w-12 h-12 bg-rose-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-rose-500/30">
+              <AlertTriangle className="w-6 h-6 text-rose-400" />
             </div>
-            <h3 className="text-xl font-bold text-red-200 mb-2">Akses Ditolak.</h3>
-            <p className="text-red-200/70 text-sm leading-relaxed max-w-xs mx-auto">
+            <h3 className="text-xl font-black text-rose-400 mb-2 uppercase tracking-widest">Akses Ditolak</h3>
+            <p className="text-[var(--text-muted)] font-bold text-sm leading-relaxed max-w-xs mx-auto">
               Belum ada shift yang dibuka saat ini. Silakan buka shift terlebih dahulu.
             </p>
           </div>
 
           <Link 
             href="/dashboard" 
-            className="flex items-center justify-center gap-2 text-[var(--sky)] font-bold hover:gap-3 transition-all relative z-10 no-underline group"
+            className="flex items-center justify-center gap-2 text-[var(--sky)] font-black uppercase tracking-widest text-xs hover:gap-3 transition-all relative z-10 no-underline group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             <span>Kembali ke Dashboard</span>

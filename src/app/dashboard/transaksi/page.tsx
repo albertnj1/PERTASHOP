@@ -15,7 +15,7 @@ import ShiftGuard from "@/components/ShiftGuard";
 import { getSession } from "@/lib/auth";
 
 export default async function LaporanPage() {
-  const [reports, pertashops, activeShift, bbmConfig, session] =
+  const [reports, pertashops, activeShift, bbmConfig, session, lastBbmLog] =
     await Promise.all([
       prisma.laporan_harian.findMany({
         orderBy: { tanggal: "desc" },
@@ -30,9 +30,11 @@ export default async function LaporanPage() {
       prisma.shifts.findFirst({ where: { status: "open" } }),
       prisma.bbm_config.findFirst({ where: { nama_bbm: "Pertamax" } }),
       getSession(),
+      prisma.bbm_log.findFirst({ orderBy: { id: "desc" }, select: { totalisator_akhir: true } }),
     ]);
 
   const userRole = session?.user?.role || "Operator";
+  const lastTotalisator = lastBbmLog?.totalisator_akhir || 0;
 
   return (
     <ShiftGuard
@@ -58,6 +60,7 @@ export default async function LaporanPage() {
               activeShift={activeShift}
               bbmPrice={bbmConfig?.harga || 0}
               userRole={userRole}
+              lastTotalisator={lastTotalisator}
             />
           </div>
         </div>

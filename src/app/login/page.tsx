@@ -36,7 +36,7 @@ export default function LoginPage() {
             <Fuel className="w-12 h-12 text-white animate-bounce-subtle" />
           </div>
           <p className="text-[10px] font-black uppercase tracking-[4px] text-[var(--sky)] mb-2 opacity-80">Access Portal</p>
-          <h2 className="m-0 font-black text-4xl text-white tracking-tight">Welcome Back</h2>
+          <h2 className="m-0 font-black text-4xl text-[var(--text-main)] tracking-tight">Welcome Back</h2>
           <p className="mt-3 text-[var(--text-muted)] font-bold text-base opacity-70">Sign in to manage your operations</p>
         </div>
 
@@ -64,12 +64,7 @@ export default function LoginPage() {
           </div>
 
           <div className="space-y-3">
-            <div className="flex justify-between items-center px-1">
-              <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)]">Password</label>
-              <Link href="/forgot-password" title="Coming soon" className="text-[var(--sky)] text-[10px] font-black uppercase tracking-widest hover:underline">
-                Forgot?
-              </Link>
-            </div>
+            <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">Password</label>
             <div className="relative flex items-center group">
               <Lock className="absolute left-6 w-5 h-5 text-[var(--text-muted)] group-focus-within:text-[var(--sky)] transition-colors" />
               <input
@@ -107,11 +102,8 @@ export default function LoginPage() {
         </form>
 
         <div className="mt-12 text-center">
-          <p className="text-[13px] font-bold text-[var(--text-muted)]">
-            Don't have an account?{" "}
-            <Link href="/register" className="text-[var(--sky)] font-black uppercase tracking-wider ml-1 hover:underline">
-              Create One
-            </Link>
+          <p className="text-[11px] font-bold text-[var(--text-muted)]/50 uppercase tracking-widest">
+            Internal Corporate Access Only
           </p>
         </div>
       </div>

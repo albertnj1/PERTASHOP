@@ -22,7 +22,7 @@ export default function ForgotPasswordPage() {
             <Fuel className="w-12 h-12 text-white" />
           </div>
           <p className="text-[10px] font-black uppercase tracking-[4px] text-[var(--sky)] mb-2 opacity-80">Recovery</p>
-          <h2 className="m-0 font-black text-4xl text-white tracking-tight">Reset Password</h2>
+          <h2 className="m-0 font-black text-4xl text-[var(--text-main)] tracking-tight">Reset Password</h2>
           <p className="mt-3 text-[var(--text-muted)] font-bold text-base opacity-70">Enter your email to receive instructions</p>
         </div>
 

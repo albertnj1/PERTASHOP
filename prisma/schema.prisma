@@ -121,15 +121,19 @@ model transactions {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model users {
-  ID         Int      @id @default(autoincrement())
-  nama       String
-  email      String   @unique
-  password   String
-  role       String
-  no_hp      String
-  created_at DateTime @default(now())
-  foto       String?
-  is_active  Boolean  @default(true)
+  ID                  Int       @id @default(autoincrement())
+  nama                String
+  email               String    @unique
+  password            String
+  role                String
+  no_hp               String
+  created_at          DateTime  @default(now())
+  foto                String?
+  is_active           Boolean   @default(true)
+  nama_panggilan      String?
+  pendidikan_terakhir String?
+  tanggal_lahir       DateTime?
+  alamat              String? @db.Text
 }
 
 enum setoran_metode {

@@ -12,15 +12,16 @@ interface LaporanClientProps {
   activeShift: any;
   bbmPrice: number;
   userRole: string;
+  lastTotalisator?: number;
 }
 
-export default function LaporanClient({ pertashops, activeShift, bbmPrice, userRole }: LaporanClientProps) {
+export default function LaporanClient({ pertashops, activeShift, bbmPrice, userRole, lastTotalisator = 0 }: LaporanClientProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [notification, setNotification] = useState<{ type: "success" | "error"; message: string } | null>(null);
 
   // Form State for automatic calculations
-  const [totalisator, setTotalisator] = useState({ awal: 0, akhir: 0 });
+  const [totalisator, setTotalisator] = useState({ awal: lastTotalisator, akhir: 0 });
   const [pengeluaran, setPengeluaran] = useState({ cashback: 0, biaya: 0 });
   const [dayName, setDayName] = useState("");
 
@@ -190,16 +191,22 @@ export default function LaporanClient({ pertashops, activeShift, bbmPrice, userR
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-4">
-                      <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">Angka Awal</label>
+                      <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">
+                        Angka Awal 
+                        {userRole === "Operator" && <span className="text-rose-400 ml-2">(Otomatis/Terkunci)</span>}
+                      </label>
                       <input 
                         type="number" 
                         step="0.01"
                         name="totalisator_awal" 
                         required 
-                        className="input-glass w-full text-xl font-black focus:scale-[1.02]"
+                        readOnly={userRole === "Operator"}
+                        defaultValue={userRole === "Operator" ? lastTotalisator : undefined}
+                        className={`input-glass w-full text-xl font-black focus:scale-[1.02] ${userRole === "Operator" ? "opacity-60 grayscale cursor-not-allowed bg-black/20" : ""}`}
                         onChange={(e) => setTotalisator(prev => ({ ...prev, awal: parseFloat(e.target.value) || 0 }))}
                       />
                     </div>
+
                     <div className="space-y-4">
                       <label className="text-[10px] font-black uppercase tracking-[2px] text-[var(--text-muted)] px-1">Angka Akhir</label>
                       <input 

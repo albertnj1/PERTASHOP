@@ -8,7 +8,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Legend,
 } from "recharts";
 
 interface ChartData {
@@ -22,10 +21,10 @@ export default function ProfitLossChart({ data }: { data: ChartData[] }) {
   if (!data || data.length === 0) {
     return (
       <div className="glass card-glass p-10 flex flex-col items-center justify-center min-h-[350px]">
-        <div className="w-20 h-20 rounded-[32px] bg-white/5 flex items-center justify-center mb-6">
+        <div className="w-16 h-16 rounded-[24px] bg-white/10 flex items-center justify-center mb-6">
           <span className="text-3xl">📊</span>
         </div>
-        <p className="text-[var(--text-muted)] font-bold uppercase tracking-widest text-xs">Belum ada data untuk ditampilkan</p>
+        <p className="text-[var(--text-muted)] font-black uppercase tracking-widest text-[10px]">Belum ada data untuk ditampilkan</p>
       </div>
     );
   }
@@ -36,63 +35,59 @@ export default function ProfitLossChart({ data }: { data: ChartData[] }) {
         <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
           <defs>
             <linearGradient id="colorPenjualan" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="var(--sky)" stopOpacity={0.4} />
+              <stop offset="5%" stopColor="var(--sky)" stopOpacity={0.3} />
               <stop offset="95%" stopColor="var(--sky)" stopOpacity={0} />
             </linearGradient>
             <linearGradient id="colorProfit" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="var(--accent)" stopOpacity={0.4} />
+              <stop offset="5%" stopColor="var(--accent)" stopOpacity={0.3} />
               <stop offset="95%" stopColor="var(--accent)" stopOpacity={0} />
             </linearGradient>
-            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="3" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
           </defs>
-          <CartesianGrid strokeDasharray="10 10" vertical={false} stroke="rgba(255,255,255,0.05)" />
+          <CartesianGrid strokeDasharray="10 10" vertical={false} stroke="rgba(0,0,0,0.05)" />
           <XAxis
             dataKey="name"
             axisLine={false}
             tickLine={false}
-            tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 10, fontWeight: 900, letterSpacing: 1 }}
-            dy={20}
+            tick={{ fill: "var(--text-muted)", fontSize: 10, fontWeight: 700 }}
+            dy={15}
           />
           <YAxis
             axisLine={false}
             tickLine={false}
-            tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 10, fontWeight: 900 }}
+            tick={{ fill: "var(--text-muted)", fontSize: 10, fontWeight: 700 }}
             tickFormatter={(value) => `Rp${(value / 1000).toLocaleString()}k`}
           />
           <Tooltip
             contentStyle={{
-              backgroundColor: "rgba(10, 16, 31, 0.8)",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
-              borderRadius: "24px",
+              backgroundColor: "var(--glass-bg)",
+              border: "1px solid var(--glass-border)",
+              borderRadius: "20px",
               backdropFilter: "blur(20px)",
-              boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
-              padding: "20px",
+              boxShadow: "var(--glass-shadow)",
+              padding: "15px",
             }}
-            itemStyle={{ fontWeight: 900, fontSize: "14px", padding: "4px 0" }}
-            labelStyle={{ color: "var(--sky)", marginBottom: "12px", fontWeight: 900, fontSize: "10px", textTransform: "uppercase", letterSpacing: "2px" }}
+            itemStyle={{ fontWeight: 800, fontSize: "12px", color: "var(--text-main)" }}
+            labelStyle={{ color: "var(--sky)", marginBottom: "8px", fontWeight: 900, fontSize: "10px", textTransform: "uppercase" }}
             formatter={(value: any) => [`Rp ${Number(value).toLocaleString("id-ID")}`, ""]}
-            cursor={{ stroke: "rgba(255,255,255,0.1)", strokeWidth: 2 }}
+            cursor={{ stroke: "var(--sky)", strokeWidth: 1, strokeDasharray: "5 5" }}
           />
-          <Line
+          <Area
+            type="monotone"
+            dataKey="penjualan"
+            stroke="var(--sky)"
+            strokeWidth={4}
+            fillOpacity={1}
+            fill="url(#colorPenjualan)"
+            animationDuration={2000}
+          />
+          <Area
             type="monotone"
             dataKey="profit"
-            stroke="var(--sky)"
-            strokeWidth={5}
-            dot={{ r: 0 }}
-            activeDot={{ r: 10, strokeWidth: 0, fill: "var(--sky)", shadow: "0 0 20px var(--sky)" }}
-            filter="drop-shadow(0 0 15px var(--sky))"
-          />
-          <Line
-            type="monotone"
-            dataKey="revenue"
-            stroke="#818cf8"
-            strokeWidth={5}
-            dot={{ r: 0 }}
-            activeDot={{ r: 10, strokeWidth: 0, fill: "#818cf8", shadow: "0 0 20px #818cf8" }}
-            filter="drop-shadow(0 0 15px #818cf8))"
+            stroke="var(--accent)"
+            strokeWidth={4}
+            fillOpacity={1}
+            fill="url(#colorProfit)"
+            animationDuration={2000}
           />
         </AreaChart>
       </ResponsiveContainer>
